@@ -2,9 +2,9 @@
 // Le Panier Vert — Page Abonnements
 // ═══════════════════════════════════════════════
 import React from 'react';
-import { PLANS, STRIPE_LINKS } from '../data';
+import { PLANS } from '../data';
 
-export default function PageAbonnements({ navigate }) {
+export default function PageAbonnements({ navigate, currentUser }) {
   return (
     <div className="page-enter">
       <div className="plans-wrap" style={{ background:'#1E2D1A', padding:'72px 48px', textAlign:'center' }}>
@@ -30,7 +30,7 @@ export default function PageAbonnements({ navigate }) {
                 <button
                   className="btn-plan"
                   style={{ background: p.color }}
-                  onClick={() => window.open(STRIPE_LINKS[p.id] || '#', '_blank')}
+                  onClick={() => navigate(currentUser ? 'moncompte' : 'inscription')}
                 >
                   Choisir {p.nom} →
                 </button>
