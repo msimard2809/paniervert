@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════════
 import React, { useState } from 'react';
 
-const CATS = ['Tous','Légumes','Œufs','Fromages','Miel','Semences'];
+const CATS = ['Tous','Légumes','Paniers','Fromages','Viandes','Fruits','Laitier','Œufs','Miel','Herbes','Conserves','Farines'];
 
 export default function PageProduits({ produits, ajouterAuPanier, currentUser }) {
   const [catActive, setCatActive] = useState('Tous');
