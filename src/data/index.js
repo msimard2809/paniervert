@@ -38,10 +38,10 @@ export const STRIPE_LINKS = {
 };
 
 export const PLANS = [
-  { id:'debutant',   emoji:'🌱', nom:'Débutant',   prix:'29,99',  produits:'0–25 produits',   couleur:'#6A9E77', features:['Vitrine producteur','Fiche profil complète','Jusqu\'à 25 produits','Réservations clients','Support par courriel'] },
-  { id:'croissance', emoji:'🌿', nom:'Croissance', prix:'49,99',  produits:'26–50 produits',  couleur:'#3D6B4A', features:['Tout Débutant +','Jusqu\'à 50 produits','Achat immédiat activé','Commandes récurrentes','Statistiques de base'] },
-  { id:'pro',        emoji:'🚀', nom:'Pro',        prix:'69,99',  produits:'51–100 produits', couleur:'#C97D12', vedette:true, features:['Tout Croissance +','Jusqu\'à 100 produits','Priorité dans les résultats','Publicités incluses','Tableau de bord avancé'] },
-  { id:'illimites',  emoji:'💎', nom:'Illimités',  prix:'79,99',  produits:'200+ produits',   couleur:'#7A2E45', features:['Tout Pro +','Produits illimités','Position premium','Gestionnaire de compte','API partenaire'] },
+  { id:'gratuit',    emoji:'🪴', nom:'Vitrine',    prix:'0',      produits:'1–3 produits',    couleur:'#6A9E77', features:['Fiche profil visible','Jusqu\'à 3 produits listés','Bouton "Contacter" seulement','Pas de vente en ligne','Pas de commission'] },
+  { id:'debutant',   emoji:'🌱', nom:'Débutant',   prix:'29,99',  produits:'0–25 produits',   couleur:'#3D6B4A', features:['Vitrine complète','Jusqu\'à 25 produits','Achat immédiat Stripe/PayPal','Réservations en ligne','Commission 8% / vente'] },
+  { id:'croissance', emoji:'🌿', nom:'Croissance', prix:'49,99',  produits:'26–50 produits',  couleur:'#C97D12', popular:true, features:['Tout Débutant +','Jusqu\'à 50 produits','Commandes récurrentes','Statistiques de base','Support prioritaire'] },
+  { id:'pro',        emoji:'🚀', nom:'Pro',        prix:'69,99',  produits:'51–200 produits', couleur:'#BF4E22', features:['Tout Croissance +','Jusqu\'à 200 produits','Priorité dans les résultats','Publicités incluses','Tableau de bord avancé'] },
 ];
 
 export const FERMES_DEMO = [
