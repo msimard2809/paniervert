@@ -44,7 +44,7 @@ export function PageAjouterProduit({ currentUser, ajouterProduit, navigate }) {
 
   return (
     <div className="page-enter">
-      <div className="form-wrap" style={{ paddingTop:'60px', maxWidth:'640px' }}>
+      <div className="form-wrap" style={{ paddingTop:'60px' }}>
         <div className="form-box">
           <h2>📦 Ajouter un produit</h2>
           <p>Votre produit sera visible publiquement sur la plateforme.</p>
