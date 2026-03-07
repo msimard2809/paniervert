@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# 🧺 Le Panier Vert — React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Marché bio du Québec — plateforme complète React.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Installation dans VS Code
 
-### `npm start`
+### 1. Copiez les fichiers dans votre projet
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Copiez le contenu de ce dossier dans :
+```
+C:\Users\mesco\projets\paniervert\
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. Ouvrez le terminal dans VS Code
+```
+Ctrl + `  (backtick)
+```
 
-### `npm test`
+### 3. Installez les dépendances
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. Lancez le projet
+```bash
+npm start
+```
 
-### `npm run build`
+Le site s'ouvre automatiquement sur **http://localhost:3000** 🎉
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Structure des fichiers
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── App.jsx                          ← Point d'entrée principal
+├── index.js                         ← Montage React DOM
+│
+├── data/
+│   └── data.js                      ← Données (users, produits, plans, traductions)
+│
+├── hooks/
+│   └── useApp.js                    ← État global (navigation, auth, panier)
+│
+├── styles/
+│   └── global.css                   ← Tous les styles CSS
+│
+├── components/
+│   ├── Navbar.jsx                   ← Barre de navigation
+│   ├── Footer.jsx                   ← Pied de page
+│   ├── PanierDrawer.jsx             ← Tiroir panier flottant
+│   └── ModalContact.jsx             ← Modal contact ferme
+│
+└── pages/
+    ├── PageAccueil.jsx              ← Hero + portails + stats
+    ├── PageFermes.jsx               ← Annuaire des fermes
+    ├── PageProduits.jsx             ← Marché avec filtres
+    ├── PageCommercants.jsx          ← Hub commerçants (5 onglets)
+    ├── PageDistributeurs.jsx        ← Annuaire distributeurs
+    ├── PageAbonnements.jsx          ← Plans tarifaires
+    ├── PageAuth.jsx                 ← Connexion + Inscription
+    ├── PageMonCompte.jsx            ← Tableau de bord membre
+    └── PageProduitParrainage.jsx    ← Ajouter produit + Parrainage
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔑 Comptes de démonstration
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Type          | Courriel                    | Mot de passe   |
+|---------------|-----------------------------|----------------|
+| Consommateur  | client@test.com             | 123456         |
+| Ferme 1       | ferme1@test.com             | 123456         |
+| Ferme 2       | ferme2@test.com             | 123456         |
+| Ferme 3       | ferme3@test.com             | 123456         |
+| Distributeur  | info@semencesempire.ca      | semences2026   |
+| Distributeur  | info@supravert.com          | supravert2026  |
+| Commerçant    | comm@test.com               | 123456         |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 💳 Stripe — Configurer les vrais liens
 
-## Learn More
+Dans `src/data/data.js`, remplacez les liens Stripe :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+export const STRIPE_LINKS = {
+  debutant:   'https://buy.stripe.com/VOTRE_LIEN_DEBUTANT',
+  croissance: 'https://buy.stripe.com/VOTRE_LIEN_CROISSANCE',
+  pro:        'https://buy.stripe.com/VOTRE_LIEN_PRO',
+  illimites:  'https://buy.stripe.com/VOTRE_LIEN_ILLIMITES',
+};
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🌐 Déploiement sur Vercel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run build
+```
+Puis poussez sur GitHub et connectez à Vercel.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📋 Plans tarifaires v18
 
-### Making a Progressive Web App
+| Plan       | Produits     | Prix/mois |
+|------------|--------------|-----------|
+| 🌱 Débutant  | 0–25         | 29,99 $   |
+| 🌿 Croissance| 26–50        | 49,99 $   |
+| 🚀 Pro       | 51–100       | 69,99 $   |
+| 💎 Illimités | 200+         | 79,99 $   |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Commission : **8%** sur toutes les transactions.
+Acheteurs : **Gratuit**.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Le Panier Vert · lepaniervert.quebec · © 2026*
