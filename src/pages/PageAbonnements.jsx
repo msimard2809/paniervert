@@ -2,7 +2,7 @@
 // Le Panier Vert — Page Abonnements
 // ═══════════════════════════════════════════════
 import React from 'react';
-import { PLANS, STRIPE_LINKS } from '../data/data';
+import { PLANS, STRIPE_LINKS } from '../data';
 
 export default function PageAbonnements({ navigate }) {
   return (
