@@ -30,7 +30,7 @@ export default function App() {
       case 'produits':       return <PageProduits      produits={app.produits}    ajouterAuPanier={app.ajouterAuPanier} currentUser={app.currentUser} />;
       case 'commercants':    return <PageCommercants   setModal={app.setModal}    navigate={app.navigate} />;
       case 'distributeurs':  return <PageDistributeurs setModal={app.setModal}    navigate={app.navigate} />;
-      case 'abonnements':    return <PageAbonnements   navigate={app.navigate} />;
+      case 'abonnements':    return <PageAbonnements   navigate={app.navigate} currentUser={app.currentUser} />;
       case 'connexion':      return <PageConnexion     connexion={app.connecter}  navigate={app.navigate} />;
       case 'inscription':    return <PageInscription   inscription={app.inscrire} navigate={app.navigate} />;
       case 'moncompte':      return <PageMonCompte     currentUser={app.currentUser} deconnexion={app.deconnecter} navigate={app.navigate} produits={app.produits} />;

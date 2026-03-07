@@ -310,3 +310,20 @@ textarea { height:88px; resize:vertical; }
 
 .modal   { background: var(--white); border-radius: 16px; padding: 36px 32px; max-width: 460px; width: 90%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
 .modal-x { position: absolute; top: 14px; right: 14px; background: var(--parchment); border: none; color: var(--ink); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+/* ═══════════════════════════════════════════════
+   TYPE CARD (Inscription)
+   ═══════════════════════════════════════════════ */
+
+.type-card { border: 2px solid var(--wheat); border-radius: 10px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--cream); }
+.type-card:hover { border-color: var(--fern); background: var(--white); }
+.type-card.sel { border-color: var(--fern); background: rgba(61,107,74,0.08); }
+.type-card h3 { font-size: 13px; font-weight: 700; color: var(--forest); margin-bottom: 2px; font-family: 'Source Sans 3', sans-serif; }
+.type-card p  { font-size: 11px; color: #9B8B7A; font-family: 'Merriweather', serif; font-style: italic; margin: 0; }
+
+/* ═══════════════════════════════════════════════
+   FORM-BOX — titres et textes
+   ═══════════════════════════════════════════════ */
+
+.form-box h2 { font-family: 'Abril Fatface', serif; font-size: 24px; color: var(--forest); margin-bottom: 6px; }
+.form-box p  { font-size: 13px; color: #6B5B45; font-family: 'Merriweather', serif; font-style: italic; margin-bottom: 20px; line-height: 1.6; }
