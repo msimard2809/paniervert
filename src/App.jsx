@@ -25,24 +25,23 @@ export default function App() {
 
   const renderPage = () => {
     switch (app.page) {
-      case 'accueil':        return <PageAccueil       lang={app.lang}         navigate={app.navigate} />;
-      case 'fermes':         return <PageFermes        setModal={app.setModal} navigate={app.navigate} />;
-      case 'produits':       return <PageProduits      produits={app.produits} ajouterAuPanier={app.ajouterAuPanier} currentUser={app.currentUser} />;
-      case 'commercants':    return <PageCommercants   setModal={app.setModal} navigate={app.navigate} />;
-      case 'distributeurs':  return <PageDistributeurs setModal={app.setModal} navigate={app.navigate} />;
+      case 'accueil':        return <PageAccueil       lang={app.lang}            navigate={app.navigate} />;
+      case 'fermes':         return <PageFermes        setModal={app.setModal}    navigate={app.navigate} />;
+      case 'produits':       return <PageProduits      produits={app.produits}    ajouterAuPanier={app.ajouterAuPanier} currentUser={app.currentUser} />;
+      case 'commercants':    return <PageCommercants   setModal={app.setModal}    navigate={app.navigate} />;
+      case 'distributeurs':  return <PageDistributeurs setModal={app.setModal}    navigate={app.navigate} />;
       case 'abonnements':    return <PageAbonnements   navigate={app.navigate} />;
-      case 'connexion':      return <PageConnexion     connexion={app.connexion} navigate={app.navigate} />;
-      case 'inscription':    return <PageInscription   inscription={app.inscription} navigate={app.navigate} />;
-      case 'moncompte':      return <PageMonCompte     currentUser={app.currentUser} deconnexion={app.deconnexion} navigate={app.navigate} produits={app.produits} />;
+      case 'connexion':      return <PageConnexion     connexion={app.connecter}  navigate={app.navigate} />;
+      case 'inscription':    return <PageInscription   inscription={app.inscrire} navigate={app.navigate} />;
+      case 'moncompte':      return <PageMonCompte     currentUser={app.currentUser} deconnexion={app.deconnecter} navigate={app.navigate} produits={app.produits} />;
       case 'ajouterproduit': return <PageAjouterProduit currentUser={app.currentUser} ajouterProduit={app.ajouterProduit} navigate={app.navigate} />;
       case 'parrainage':     return <PageParrainage    currentUser={app.currentUser} navigate={app.navigate} />;
-      default:               return <PageAccueil       lang={app.lang}         navigate={app.navigate} />;
+      default:               return <PageAccueil       lang={app.lang}            navigate={app.navigate} />;
     }
   };
 
   return (
     <>
-      {/* Barre de navigation */}
       <Navbar
         page={app.page}
         lang={app.lang}
@@ -50,32 +49,27 @@ export default function App() {
         currentUser={app.currentUser}
         navigate={app.navigate}
         totalPanier={app.totalPanier}
-        setPanierOpen={app.setPanierOpen}
+        setPanierOpen={app.setShowCart}
       />
 
-      {/* Divider coloré */}
       <div className="divider" />
 
-      {/* Contenu de la page */}
       <main>
         {renderPage()}
       </main>
 
-      {/* Footer */}
-      <Footer navigate={app.navigate} />
+      <Footer navigate={app.navigate} lang={app.lang} />
 
-      {/* Tiroir panier */}
       <PanierDrawer
         panier={app.panier}
         totalPanier={app.totalPanier}
         retirerDuPanier={app.retirerDuPanier}
         viderPanier={app.viderPanier}
-        open={app.panierOpen}
-        setOpen={app.setPanierOpen}
+        open={app.showCart}
+        setOpen={app.setShowCart}
         navigate={app.navigate}
       />
 
-      {/* Modal contact */}
       <ModalContact
         modal={app.modal}
         onClose={() => app.setModal(null)}
