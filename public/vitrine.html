@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Panier Vert — Marché bio du Québec</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:#1B3A2D;
+  --moss:#2D5A3D;
+  --fern:#4A7C59;
+  --sage:#7BAE87;
+  --mint:#B5D5BE;
+  --cream:#F7F2E8;
+  --parchment:#EDE4D0;
+  --wheat:#D4B896;
+  --ember:#C4622D;
+  --harvest:#D4891A;
+  --berry:#8B3A52;
+  --sky:#4A7FA5;
+  --white:#FFFDF8;
+  --ink:#2A1F14;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+
+/* TEXTURE OVERLAY */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23000'/%3E%3Crect width='1' height='1' fill='%23fff' opacity='0.5'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23fff' opacity='0.5'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{background:var(--forest);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:500;box-shadow:0 4px 24px rgba(0,0,0,0.35);}
+.nav-brand{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.nav-logo-icon{font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));}
+.nav-logo-text{font-family:'Abril Fatface',serif;color:var(--mint);font-size:22px;letter-spacing:1px;line-height:1;}
+.nav-logo-sub{color:var(--sage);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Merriweather',serif;font-style:italic;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nb{background:transparent;color:rgba(181,213,190,0.8);border:1px solid rgba(181,213,190,0.2);border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;transition:all 0.2s;letter-spacing:0.5px;}
+.nb:hover,.nb.act{background:var(--fern);border-color:var(--fern);color:var(--white);}
+.nb.cta{background:var(--ember);border-color:var(--ember);color:var(--white);font-weight:700;}
+.nb.cta:hover{background:#B5521D;}
+.nb.usr{background:var(--moss);border-color:var(--sage);color:var(--mint);}
+.lang-toggle{display:flex;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;}
+.lang-btn{background:transparent;color:rgba(181,213,190,0.7);border:none;padding:7px 10px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:700;transition:all 0.2s;}
+.lang-btn.act{background:var(--harvest);color:var(--white);}
+
+/* PAGES */
+.page{display:none;animation:fadeUp 0.35s ease;}
+.page.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{background:var(--forest);min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse at 20% 50%, rgba(74,124,89,0.4) 0%, transparent 60%),
+  radial-gradient(ellipse at 80% 20%, rgba(45,90,61,0.3) 0%, transparent 50%),
+  radial-gradient(ellipse at 60% 80%, rgba(196,98,45,0.15) 0%, transparent 40%);}
+.hero-pattern{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='1'%3E%3Cpath d='M40 0C40 0 32 16 32 24C32 32 40 36 40 36C40 36 48 32 48 24C48 16 40 0 40 0Z'/%3E%3C/g%3E%3C/svg%3E");background-size:80px;}
+.hero-content{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 48px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(181,213,190,0.1);border:1px solid rgba(181,213,190,0.3);color:var(--mint);border-radius:4px;padding:6px 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'Merriweather',serif;font-style:italic;margin-bottom:24px;}
+.hero h1{font-family:'Abril Fatface',serif;font-size:clamp(38px,5vw,64px);color:var(--white);line-height:1.1;margin-bottom:20px;}
+.hero h1 em{color:var(--harvest);font-style:italic;}
+.hero-sub{font-size:17px;color:rgba(181,213,190,0.8);line-height:1.8;margin-bottom:36px;font-family:'Merriweather',serif;font-weight:300;font-style:italic;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-p{background:var(--ember);color:var(--white);border:none;border-radius:6px;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;letter-spacing:0.5px;box-shadow:0 4px 20px rgba(196,98,45,0.4);transition:all 0.2s;}
+.btn-p:hover{background:#B5521D;transform:translateY(-2px);}
+.btn-s{background:transparent;color:var(--mint);border:2px solid rgba(181,213,190,0.4);border-radius:6px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all 0.2s;}
+.btn-s:hover{border-color:var(--mint);background:rgba(181,213,190,0.08);}
+.hero-right{display:flex;flex-direction:column;gap:14px;}
+.hero-stat-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(181,213,190,0.15);border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:16px;transition:transform 0.2s;}
+.hero-stat-card:hover{transform:translateX(4px);}
+.hero-stat-e{font-size:32px;}
+.hero-stat-n{font-family:'Abril Fatface',serif;font-size:28px;color:var(--harvest);}
+.hero-stat-l{font-size:12px;color:rgba(181,213,190,0.7);letter-spacing:1px;text-transform:uppercase;}
+
+/* DIVIDER */
+.divider{height:6px;background:linear-gradient(90deg,var(--forest),var(--fern),var(--harvest),var(--fern),var(--forest));}
+
+/* STATS BAR */
+.stats-bar{background:var(--parchment);padding:28px 48px;display:flex;justify-content:center;gap:60px;flex-wrap:wrap;border-bottom:2px solid var(--wheat);}
+.stat{text-align:center;}
+.stat-n{font-family:'Abril Fatface',serif;font-size:38px;color:var(--forest);}
+.stat-l{font-size:11px;color:var(--fern);letter-spacing:2px;text-transform:uppercase;font-family:'Merriweather',serif;font-style:italic;}
+
+/* SECTIONS */
+section{padding:72px 48px;}
+.sec-eyebrow{font-family:'Merriweather',serif;font-style:italic;color:var(--fern);font-size:13px;letter-spacing:1px;margin-bottom:10px;}
+.sec-title{font-family:'Abril Fatface',serif;font-size:clamp(28px,4vw,44px);color:var(--forest);margin-bottom:14px;line-height:1.2;}
+.sec-sub{color:#6B5B45;font-size:15px;line-height:1.8;max-width:560px;font-family:'Merriweather',serif;font-weight:300;font-style:italic;margin-bottom:40px;}
+
+/* PORTAILS */
+.portails{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.portail{border-radius:12px;padding:32px;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+.portail:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.15);}
+.portail::before{content:'';position:absolute;bottom:-20px;right:-20px;width:100px;height:100px;border-radius:50%;opacity:0.15;}
+.portail-e{font-size:44px;margin-bottom:16px;display:block;}
+.portail h3{font-family:'Abril Fatface',serif;font-size:22px;margin-bottom:10px;}
+.portail p{font-size:13px;line-height:1.7;margin-bottom:20px;font-family:'Merriweather',serif;font-weight:300;font-style:italic;}
+.portail-list{list-style:none;margin-bottom:22px;}
+.portail-list li{font-size:12px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;gap:8px;align-items:center;}
+.portail-btn{border:2px solid currentColor;border-radius:6px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;background:transparent;transition:all 0.2s;width:100%;}
+
+/* FICHES ANNUAIRE */
+.annuaire-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
+.fiche{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(42,31,20,0.1);transition:all 0.3s;cursor:pointer;border:1px solid var(--parchment);}
+.fiche:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(42,31,20,0.18);}
+.fiche-top{padding:24px 22px 16px;position:relative;}
+.fiche-coup{position:absolute;top:12px;right:12px;background:var(--harvest);color:var(--white);border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;box-shadow:0 2px 8px rgba(212,137,26,0.4);}
+.fiche-coup.payant{background:var(--ember);}
+.fiche-e{font-size:48px;margin-bottom:12px;display:block;}
+.fiche-nom{font-family:'Abril Fatface',serif;font-size:20px;color:var(--forest);margin-bottom:4px;}
+.fiche-loc{color:var(--fern);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.fiche-desc{color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-weight:300;font-style:italic;margin-bottom:14px;}
+.fiche-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.tag{background:var(--parchment);color:var(--forest);border-radius:4px;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:0.5px;}
+.fiche-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--parchment);border-top:1px solid var(--wheat);}
+.fiche-hrs{font-size:11px;color:#9B8B7A;}
+.fiche-hrs strong{color:var(--ink);display:block;font-size:12px;font-weight:700;}
+.btn-cnt{background:var(--forest);color:var(--mint);border:none;border-radius:6px;padding:8px 16px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;letter-spacing:0.5px;transition:all 0.2s;}
+.btn-cnt:hover{background:var(--moss);}
+
+/* PRODUITS */
+.produits-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+.prod-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(42,31,20,0.08);border:1px solid var(--parchment);transition:all 0.2s;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(42,31,20,0.14);}
+.prod-top{padding:20px 16px 12px;text-align:center;position:relative;}
+.prod-e{font-size:40px;margin-bottom:8px;display:block;}
+.prod-n{font-family:'Abril Fatface',serif;font-size:15px;color:var(--white);margin-bottom:4px;}
+.prod-cat{background:rgba(255,255,255,0.2);color:var(--white);border-radius:3px;padding:2px 8px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.prod-ferme{color:rgba(255,255,255,0.75);font-size:10px;margin-top:5px;font-style:italic;}
+.prod-body{padding:14px 16px;}
+.prod-desc{color:#6B5B45;font-size:11px;line-height:1.5;margin-bottom:10px;font-family:'Merriweather',serif;font-style:italic;}
+.prod-prix{font-family:'Abril Fatface',serif;font-size:17px;color:var(--forest);margin-bottom:10px;}
+.prod-dispo{font-size:10px;color:var(--fern);margin-bottom:10px;font-weight:600;}
+.btn-cmd{width:100%;padding:9px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;color:var(--white);letter-spacing:0.5px;transition:opacity 0.2s;}
+.btn-cmd:hover{opacity:0.85;}
+
+/* ABONNEMENTS */
+.plans-wrap{background:var(--forest);padding:72px 48px;}
+.plans-wrap .sec-title{color:var(--white);}
+.plans-wrap .sec-eyebrow{color:var(--sage);}
+.plans-wrap .sec-sub{color:rgba(181,213,190,0.7);}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px;}
+.plan{background:rgba(255,255,255,0.06);border:1px solid rgba(181,213,190,0.15);border-radius:12px;padding:32px 26px;position:relative;transition:all 0.3s;}
+.plan:hover{background:rgba(255,255,255,0.09);transform:translateY(-4px);}
+.plan.feat{border-color:var(--harvest);background:rgba(212,137,26,0.08);}
+.plan-pop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--harvest);color:var(--white);border-radius:4px;padding:4px 16px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
+.plan-e{font-size:36px;margin-bottom:14px;}
+.plan-n{font-family:'Abril Fatface',serif;font-size:22px;color:var(--white);margin-bottom:6px;}
+.plan-n-en{font-family:'Merriweather',serif;font-style:italic;font-size:13px;color:var(--sage);margin-bottom:10px;}
+.plan-d{color:rgba(181,213,190,0.6);font-size:12px;margin-bottom:18px;font-family:'Merriweather',serif;font-style:italic;}
+.plan-p{font-family:'Abril Fatface',serif;font-size:44px;color:var(--harvest);}
+.plan-p span{font-size:15px;color:var(--sage);font-family:'Source Sans 3',sans-serif;}
+.plan-per{color:rgba(181,213,190,0.5);font-size:11px;margin-bottom:22px;font-style:italic;}
+.plan-ul{list-style:none;margin-bottom:26px;}
+.plan-ul li{padding:7px 0;font-size:12px;color:rgba(181,213,190,0.8);border-bottom:1px solid rgba(181,213,190,0.08);display:flex;align-items:center;gap:8px;}
+.plan-ul li::before{content:'✓';color:var(--harvest);font-weight:700;}
+.btn-plan{width:100%;padding:13px;border-radius:6px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;letter-spacing:0.5px;transition:all 0.2s;color:var(--white);}
+.btn-plan:hover{opacity:0.88;transform:translateY(-1px);}
+
+/* PARRAINAGE */
+.parrainage-sec{background:var(--parchment);border-top:3px solid var(--wheat);}
+.parrainage-box{background:var(--white);border-radius:16px;padding:36px;border:2px solid var(--wheat);max-width:700px;margin:0 auto;text-align:center;}
+.parrainage-box h3{font-family:'Abril Fatface',serif;color:var(--forest);font-size:26px;margin-bottom:10px;}
+.parrainage-box p{color:#6B5B45;font-family:'Merriweather',serif;font-style:italic;font-size:14px;line-height:1.7;margin-bottom:24px;}
+.parrainage-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px;}
+.par-step{text-align:center;padding:16px;}
+.par-e{font-size:36px;margin-bottom:8px;}
+.par-t{font-weight:700;color:var(--forest);font-size:13px;margin-bottom:4px;}
+.par-d{color:#9B8B7A;font-size:11px;line-height:1.5;font-family:'Merriweather',serif;font-style:italic;}
+.parrainage-code{background:var(--parchment);border:2px dashed var(--wheat);border-radius:8px;padding:14px 20px;font-family:'Abril Fatface',serif;font-size:22px;color:var(--ember);letter-spacing:4px;margin-bottom:20px;cursor:pointer;transition:all 0.2s;}
+.parrainage-code:hover{background:var(--cream);}
+
+/* TABLEAU DE BORD */
+.dash-wrap{max-width:1000px;margin:0 auto;padding:40px 24px;}
+.dash-header{background:var(--white);border-radius:12px;padding:26px 30px;margin-bottom:22px;box-shadow:0 4px 16px rgba(42,31,20,0.08);display:flex;align-items:center;gap:20px;border:1px solid var(--parchment);}
+.dash-ava{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.dash-nom{font-family:'Abril Fatface',serif;font-size:22px;color:var(--forest);margin-bottom:4px;}
+.dash-type{border-radius:4px;padding:3px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:inline-block;}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:22px;}
+.ds{border-radius:10px;padding:18px 20px;text-align:center;}
+.ds-n{font-family:'Abril Fatface',serif;font-size:28px;color:var(--white);}
+.ds-l{font-size:10px;color:rgba(255,255,255,0.7);margin-top:3px;letter-spacing:1px;text-transform:uppercase;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.act-card{background:var(--white);border-radius:10px;padding:20px;cursor:pointer;box-shadow:0 3px 12px rgba(42,31,20,0.07);border-left:4px solid var(--fern);border:1px solid var(--parchment);border-left:4px solid var(--fern);transition:all 0.2s;}
+.act-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(42,31,20,0.12);}
+.act-e{font-size:28px;margin-bottom:8px;}
+.act-n{font-family:'Abril Fatface',serif;color:var(--forest);font-size:14px;margin-bottom:4px;}
+.act-d{color:#9B8B7A;font-size:11px;line-height:1.5;font-family:'Merriweather',serif;font-style:italic;}
+.btn-logout{background:rgba(196,98,45,0.1);color:var(--ember);border:1px solid rgba(196,98,45,0.3);border-radius:6px;padding:8px 16px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:12px;margin-left:auto;}
+
+/* PRODUITS DU MEMBRE */
+.mes-prod-sec{margin-top:32px;}
+.mes-prod-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.mes-prod-title{font-family:'Abril Fatface',serif;color:var(--forest);font-size:20px;}
+.btn-add-prod{background:var(--fern);color:var(--white);border:none;border-radius:6px;padding:10px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;letter-spacing:0.5px;}
+
+/* FORMULAIRES */
+.form-wrap{max-width:560px;margin:0 auto;padding:40px 24px;}
+.form-box{background:var(--white);border-radius:16px;padding:36px;box-shadow:0 8px 32px rgba(42,31,20,0.1);border:1px solid var(--parchment);}
+.form-box h2{font-family:'Abril Fatface',serif;color:var(--forest);font-size:26px;margin-bottom:6px;}
+.form-box p{color:#9B8B7A;font-size:13px;margin-bottom:24px;font-family:'Merriweather',serif;font-style:italic;}
+label{display:block;font-weight:700;color:var(--forest);margin-bottom:5px;font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+input,textarea,select{width:100%;padding:12px 14px;border-radius:6px;border:1.5px solid var(--wheat);font-size:14px;font-family:'Source Sans 3',sans-serif;margin-bottom:14px;outline:none;background:var(--cream);transition:border 0.2s;color:var(--ink);}
+input:focus,textarea:focus,select:focus{border-color:var(--fern);background:var(--white);}
+textarea{height:88px;resize:vertical;}
+.btn-submit{width:100%;padding:14px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;color:var(--white);margin-top:4px;letter-spacing:0.5px;transition:all 0.2s;}
+.btn-submit:hover{opacity:0.88;transform:translateY(-1px);}
+.btn-back{width:100%;padding:12px;border:2px solid var(--wheat);border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;color:#9B8B7A;background:transparent;margin-top:8px;transition:all 0.2s;}
+.btn-back:hover{border-color:var(--fern);color:var(--fern);}
+.msg-err{background:#FEE2E2;color:#C0392B;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px;border-left:3px solid #C0392B;}
+.msg-ok{background:var(--parchment);color:var(--forest);border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px;font-weight:700;border-left:3px solid var(--fern);}
+
+/* TYPE CARDS INSCRIPTION */
+.type-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:20px;}
+.type-card{background:var(--white);border-radius:10px;padding:22px 16px;cursor:pointer;box-shadow:0 3px 12px rgba(42,31,20,0.08);text-align:center;border:2px solid var(--parchment);transition:all 0.2s;}
+.type-card:hover,.type-card.sel{border-color:var(--fern);transform:translateY(-3px);}
+.type-card-e{font-size:36px;margin-bottom:10px;}
+.type-card h3{font-family:'Abril Fatface',serif;color:var(--forest);font-size:15px;margin-bottom:5px;}
+.type-card p{color:#9B8B7A;font-size:10px;line-height:1.5;font-family:'Merriweather',serif;font-style:italic;}
+
+/* DEMO BOX */
+.demo-box{background:var(--parchment);border-radius:8px;padding:14px 16px;margin-top:16px;border:1px solid var(--wheat);}
+.demo-box-title{font-weight:700;color:var(--forest);font-size:10px;margin-bottom:8px;letter-spacing:1.5px;text-transform:uppercase;}
+.demo-item{font-size:11px;color:var(--moss);margin:5px 0;cursor:pointer;padding:5px 8px;border-radius:4px;transition:background 0.15s;}
+.demo-item:hover{background:var(--wheat);}
+.demo-item span{color:var(--ember);font-weight:700;}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(27,58,45,0.75);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.overlay.act{display:flex;}
+.modal{background:var(--white);border-radius:16px;padding:36px;max-width:480px;width:90%;position:relative;border:1px solid var(--parchment);}
+.modal-x{position:absolute;top:14px;right:14px;background:var(--parchment);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:14px;color:var(--ink);}
+.modal h2{font-family:'Abril Fatface',serif;color:var(--forest);font-size:22px;margin-bottom:4px;}
+.modal-loc{color:var(--fern);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;}
+.minfo{display:flex;flex-direction:column;gap:10px;}
+.mrow{display:flex;align-items:center;gap:14px;background:var(--parchment);border-radius:8px;padding:13px 16px;border:1px solid var(--wheat);}
+.mrow-icon{font-size:20px;}
+.mrow strong{display:block;color:var(--ink);font-size:13px;}
+.mrow small{color:#9B8B7A;font-size:11px;font-family:'Merriweather',serif;font-style:italic;}
+.modal-note{background:rgba(74,124,89,0.08);border-radius:8px;padding:12px 16px;margin-top:14px;font-size:12px;color:var(--moss);font-family:'Merriweather',serif;font-style:italic;border-left:3px solid var(--fern);}
+.modal-btn{width:100%;margin-top:18px;padding:14px;background:var(--forest);color:var(--white);border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;letter-spacing:0.5px;transition:background 0.2s;}
+.modal-btn:hover{background:var(--moss);}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(181,213,190,0.6);padding:52px 48px;text-align:center;}
+.f-logo{font-family:'Abril Fatface',serif;font-size:30px;color:var(--mint);margin-bottom:8px;}
+footer p{font-size:12px;line-height:1.9;margin-bottom:22px;font-family:'Merriweather',serif;font-style:italic;}
+.f-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.f-links a{color:var(--sage);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.5px;transition:color 0.2s;}
+.f-links a:hover{color:var(--harvest);}
+.f-copy{font-size:10px;color:rgba(181,213,190,0.3);letter-spacing:1px;}
+
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .hero-content{grid-template-columns:1fr;padding:60px 20px;}
+  .hero-right{display:none;}
+  section{padding:52px 20px;}
+  .stats-bar{padding:22px 16px;gap:28px;}
+  .plans-wrap{padding:52px 20px;}
+  footer{padding:40px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand" onclick="showPage('accueil')">
+    <span class="nav-logo-icon">🧺</span>
+    <div>
+      <div class="nav-logo-text">Le Panier Vert</div>
+      <div class="nav-logo-sub" id="nav-tagline">Marché bio du Québec</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <div class="lang-toggle">
+      <button class="lang-btn act" onclick="setLang('fr',this)">FR</button>
+      <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+    </div>
+    <button class="nb" onclick="showPage('fermes')" id="nb-fermes">🌾 Fermes</button>
+    <button class="nb" onclick="showPage('produits')" id="nb-produits">🥕 Produits</button>
+    <button class="nb" onclick="showPage('distributeurs')" id="nb-dist">📦 Distributeurs</button>
+    <button class="nb" onclick="showPage('commercants')" id="nb-comm">🏪 Commerçants</button>
+    <button class="nb cta" onclick="showPage('abonnements')" id="nb-inscrire">Inscrire ma ferme →</button>
+    <button class="nb usr" id="nav-user-btn" onclick="showPage('connexion')">👤 Connexion</button>
+  </div>
+</nav>
+
+<!-- ═══ PAGE ACCUEIL ═══ -->
+<div id="page-accueil" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge">🌿 <span id="h-badge">Plateforme bio · Québec</span></div>
+        <h1 id="h-title">Le marché qui connecte <em>producteurs</em> et consommateurs</h1>
+        <p class="hero-sub" id="h-sub">Trouvez les meilleures fermes bio du Québec. Les producteurs gèrent leurs annonces — vous les contactez directement.</p>
+        <div class="hero-btns">
+          <button class="btn-p" onclick="showPage('fermes')" id="h-btn1">🔍 Explorer les fermes</button>
+          <button class="btn-s" onclick="showPage('abonnements')" id="h-btn2">Inscrire ma ferme</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat-card"><span class="hero-stat-e">🌾</span><div><div class="hero-stat-n">50+</div><div class="hero-stat-l" id="hs1">Fermes partenaires</div></div></div>
+        <div class="hero-stat-card"><span class="hero-stat-e">📦</span><div><div class="hero-stat-n">15+</div><div class="hero-stat-l" id="hs2">Distributeurs membres</div></div></div>
+        <div class="hero-stat-card"><span class="hero-stat-e">🛒</span><div><div class="hero-stat-n">1 200+</div><div class="hero-stat-l" id="hs3">Consommateurs actifs</div></div></div>
+        <div class="hero-stat-card"><span class="hero-stat-e">🏆</span><div><div class="hero-stat-n">100%</div><div class="hero-stat-l" id="hs4">Agriculture biologique</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-n">0 $</div><div class="stat-l" id="s1">Commission sur vos ventes</div></div>
+    <div class="stat"><div class="stat-n">29 $</div><div class="stat-l" id="s2">Abonnement ferme / mois</div></div>
+    <div class="stat"><div class="stat-n">∞</div><div class="stat-l" id="s3">Produits listés</div></div>
+    <div class="stat"><div class="stat-n">1 mois</div><div class="stat-l" id="s4">Gratuit par parrainage</div></div>
+  </div>
+
+  <!-- 3 PORTAILS -->
+  <section>
+    <div class="sec-eyebrow" id="p-eyebrow">Trois types d'utilisateurs</div>
+    <div class="sec-title" id="p-title">Une place de marché pour tous</div>
+    <div class="sec-sub" id="p-sub">Comme Kijiji ou Airbnb, mais pour l'agriculture biologique québécoise. Chacun gère ses propres annonces et commandes.</div>
+    <div class="portails">
+
+      <div class="portail" style="background:linear-gradient(135deg,#C4622D,#A04A20);color:var(--white);" onclick="showPage('inscription')">
+        <span class="portail-e">🛒</span>
+        <h3 id="p1-title">Consommateurs</h3>
+        <p id="p1-sub">Trouvez des fermes bio près de chez vous. Contactez-les directement.</p>
+        <ul class="portail-list">
+          <li id="p1-l1">✓ Accès gratuit à l'annuaire</li>
+          <li id="p1-l2">✓ Contact direct avec les fermes</li>
+          <li id="p1-l3">✓ Produits 100% biologiques</li>
+        </ul>
+        <button class="portail-btn" style="color:var(--white);border-color:rgba(255,255,255,0.5);" id="p1-btn">Créer un compte gratuit →</button>
+      </div>
+
+      <div class="portail" style="background:linear-gradient(135deg,#2D5A3D,#1B3A2D);color:var(--white);" onclick="showPage('abonnements')">
+        <span class="portail-e">🌾</span>
+        <h3 id="p2-title">Fermes partenaires</h3>
+        <p id="p2-sub">Créez votre vitrine, listez vos produits. Vous gérez vos commandes vous-même.</p>
+        <ul class="portail-list">
+          <li id="p2-l1">✓ Profil & produits illimités</li>
+          <li id="p2-l2">✓ Zéro commission sur vos ventes</li>
+          <li id="p2-l3">✓ 29 $ / mois seulement</li>
+        </ul>
+        <button class="portail-btn" style="color:var(--mint);border-color:var(--sage);" id="p2-btn">Inscrire ma ferme →</button>
+      </div>
+
+      <div class="portail" style="background:linear-gradient(135deg,#4A5568,#2D3748);color:var(--white);" onclick="showPage('abonnements')">
+        <span class="portail-e">📦</span>
+        <h3 id="p3-title">Membres distributeurs</h3>
+        <p id="p3-sub">Distribuez vos intrants bio. Les fermes vous trouvent et vous contactent.</p>
+        <ul class="portail-list">
+          <li id="p3-l1">✓ Catalogue produits illimité</li>
+          <li id="p3-l2">✓ Accès au réseau de fermes</li>
+          <li id="p3-l3">✓ 49 $ / mois seulement</li>
+        </ul>
+        <button class="portail-btn" style="color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.35);" id="p3-btn">Devenir distributeur →</button>
+      </div>
+
+      <div class="portail" style="background:linear-gradient(135deg,#8B3A52,#6B2A3E);color:var(--white);" onclick="showPage('abonnements')">
+        <span class="portail-e">🏪</span>
+        <h3 id="p4-title">Commerçants locaux</h3>
+        <p id="p4-sub">Épiceries bio, restaurants, boutiques santé — trouvez vos fournisseurs locaux directement.</p>
+        <ul class="portail-list">
+          <li id="p4-l1">✓ Accès annuaire fermes & distributeurs</li>
+          <li id="p4-l2">✓ Profil public visible des fermes</li>
+          <li id="p4-l3">✓ 49 $ / mois seulement</li>
+        </ul>
+        <button class="portail-btn" style="color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.35);" id="p4-btn">Inscrire mon commerce →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section style="background:var(--parchment);border-top:2px solid var(--wheat);border-bottom:2px solid var(--wheat);">
+    <div class="sec-eyebrow" id="hm-eyebrow">Simple & transparent</div>
+    <div class="sec-title" id="hm-title">Comment ça marche ?</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;">
+      <div style="text-align:center;padding:24px 16px;">
+        <div style="font-size:44px;margin-bottom:14px;">✍️</div>
+        <h3 style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:17px;margin-bottom:8px;" id="step1-t">Inscrivez-vous</h3>
+        <p style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="step1-d">Choisissez votre type de compte et créez votre profil en quelques minutes.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px;">
+        <div style="font-size:44px;margin-bottom:14px;">📸</div>
+        <h3 style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:17px;margin-bottom:8px;" id="step2-t">Listez vos produits</h3>
+        <p style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="step2-d">Ajoutez vos produits avec description, prix et disponibilité. Vous gérez tout.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px;">
+        <div style="font-size:44px;margin-bottom:14px;">📞</div>
+        <h3 style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:17px;margin-bottom:8px;" id="step3-t">Recevez des contacts</h3>
+        <p style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="step3-d">Les clients vous contactent directement. Pas d'intermédiaire, pas de commission.</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px;">
+        <div style="font-size:44px;margin-bottom:14px;">🚚</div>
+        <h3 style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:17px;margin-bottom:8px;" id="step4-t">Gérez vos livraisons</h3>
+        <p style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="step4-d">Vous organisez vos commandes et livraisons selon vos propres conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="f-logo">🧺 Le Panier Vert</div>
+    <p id="f-sub">La vitrine agricole bio du Québec.<br>Aucune commission. Les producteurs gèrent leurs ventes directement.</p>
+    <div class="f-links">
+      <a href="#" onclick="showPage('fermes')" id="f1">Nos fermes</a>
+      <a href="#" onclick="showPage('distributeurs')" id="f2">Distributeurs</a>
+      <a href="#" onclick="showPage('abonnements')" id="f3">S'inscrire</a>
+      <a href="#" onclick="showPage('parrainage')" id="f4">Parrainage</a>
+    </div>
+    <div class="f-copy">© 2026 Le Panier Vert — Cantons-de-l'Est, Québec 🌿 | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4e272028210e222b3e2f20272b3c382b3c3a603f3b2b2c2b2d">[email&#160;protected]</a></div>
+  </footer>
+</div>
+
+<!-- ═══ PAGE FERMES ═══ -->
+<div id="page-fermes" class="page">
+  <section>
+    <div class="sec-eyebrow" id="fermes-eyebrow">Annuaire des producteurs</div>
+    <div class="sec-title" id="fermes-title">Nos fermes partenaires</div>
+    <div class="sec-sub" id="fermes-sub">Des producteurs certifiés bio. Cliquez sur une fiche pour obtenir leurs coordonnées et les contacter directement.</div>
+    <div class="annuaire-grid">
+      <div class="fiche" onclick="ouvrirModal('Ferme Duval','Compton, QC','450-835-2291','fermeduval@gmail.com','Lun–Sam 8h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#D8F3DC,#B7E4C7);">
+          <span class="fiche-coup">⭐ Coup de cœur</span>
+          <span class="fiche-e">🥕</span>
+          <div class="fiche-nom">Ferme Duval</div>
+          <div class="fiche-loc">📍 Compton, QC</div>
+          <div class="fiche-desc">Famille Duval — maraîchers depuis 3 générations. Certifiés bio depuis 2018. Légumes cueillis le matin même.</div>
+          <div class="fiche-tags"><span class="tag">🥕 Légumes</span><span class="tag">🐓 Œufs</span><span class="tag">🌿 Herbes</span><span class="tag">🫐 Petits fruits</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Kiosque sam. 8h–12h</strong>Livraison disponible</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Fromagerie Lalonde','Coaticook, QC','819-849-3344','info@fromagelonande.ca','Mar–Dim 9h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FFF3CD,#FFE082);">
+          <span class="fiche-e">🧀</span>
+          <div class="fiche-nom">Fromagerie Lalonde</div>
+          <div class="fiche-loc">📍 Coaticook, QC</div>
+          <div class="fiche-desc">Fromages artisanaux de lait cru de vaches Jersiaises. 12 variétés disponibles toute l'année.</div>
+          <div class="fiche-tags"><span class="tag">🧀 Fromages</span><span class="tag">🥛 Lait cru</span><span class="tag">🧈 Beurre</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Boutique à la ferme</strong>Mar–Dim 9h–17h</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Rucher Saint-Paul','Magog, QC','450-868-1122','miel@ruchersaintpaul.ca','Sur rendez-vous')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FFF8DC,#FFD700);">
+          <span class="fiche-coup">🏆 Bio certifié</span>
+          <span class="fiche-e">🍯</span>
+          <div class="fiche-nom">Rucher Saint-Paul</div>
+          <div class="fiche-loc">📍 Magog, QC</div>
+          <div class="fiche-desc">80 ruches en lisière de forêt. Miel non pasteurisé, propolis et produits de la ruche depuis 1998.</div>
+          <div class="fiche-tags"><span class="tag">🍯 Miel</span><span class="tag">🌸 Propolis</span><span class="tag">🕯️ Cire</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Sur rendez-vous</strong>Vente à la ferme</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Ferme Beaulieu','Eastman, QC','450-297-2222','viandes@fermebeaulieu.ca','Mer–Sam 9h–16h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FDDCDC,#F4A8A8);">
+          <span class="fiche-e">🥩</span>
+          <div class="fiche-nom">Ferme Beaulieu</div>
+          <div class="fiche-loc">📍 Eastman, QC</div>
+          <div class="fiche-desc">Élevage bovin et porcin en pâturage extensif. Nourri à l'herbe, sans hormones. Caissettes disponibles.</div>
+          <div class="fiche-tags"><span class="tag">🥩 Bœuf</span><span class="tag">🐷 Porc</span><span class="tag">🐑 Agneau</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Caissettes 50–100 lbs</strong>Congélateur disponible</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Érablière Fontaine','North Hatley, QC','819-842-5566','sirop@erablierefontaine.ca','Avr–Oct 8h–18h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FFE0CC,#FFAB76);">
+          <span class="fiche-e">🍁</span>
+          <div class="fiche-nom">Érablière Fontaine</div>
+          <div class="fiche-loc">📍 North Hatley, QC</div>
+          <div class="fiche-desc">8 000 entailles en forêt mixte. Sirop ambré, beurre d'érable, bonbons depuis 1962.</div>
+          <div class="fiche-tags"><span class="tag">🍁 Sirop</span><span class="tag">🧈 Beurre d'érable</span><span class="tag">🍬 Bonbons</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Livraison Cantons-de-l'Est</strong>Avr–Oct</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Ferme Herbes Vives','Sutton, QC','450-538-7788','herbes@herbesvives.ca','Lun–Ven 9h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#D8F3DC,#52B788);">
+          <span class="fiche-e">🌿</span>
+          <div class="fiche-nom">Ferme Herbes Vives</div>
+          <div class="fiche-loc">📍 Sutton, QC</div>
+          <div class="fiche-desc">Spécialiste plantes médicinales et fines herbes bio. Tisanes, huiles essentielles, teintures artisanales.</div>
+          <div class="fiche-tags"><span class="tag">🌿 Herbes</span><span class="tag">🍵 Tisanes</span><span class="tag">💧 Huiles</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Boutique en ligne</strong>Livraison partout au QC</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE PRODUITS ═══ -->
+<div id="page-produits" class="page">
+  <section>
+    <div class="sec-eyebrow" id="prod-eyebrow">Catalogue complet</div>
+    <div class="sec-title" id="prod-title">Tous les produits bio</div>
+    <div class="sec-sub" id="prod-sub">Parcourez les produits listés par nos fermes. Cliquez "Commander" pour contacter la ferme directement.</div>
+    <div class="produits-grid" id="produits-grid"></div>
+  </section>
+</div>
+
+<!-- ═══ PAGE COMMERÇANTS ═══ -->
+<div id="page-commercants" class="page">
+  <section>
+    <div class="sec-eyebrow">Commerces locaux</div>
+    <div class="sec-title">Commerçants membres</div>
+    <div class="sec-sub">Épiceries bio, restaurants, boutiques santé et tout type de commerce local. Ils s'approvisionnent directement auprès de nos fermes et distributeurs.</div>
+    <div class="annuaire-grid">
+
+      <div class="fiche" onclick="ouvrirModal('Épicerie Bio Compton','Compton, QC','450-835-1100','info@epiceriebiocompton.ca','Lun–Sam 8h–19h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#F5E6F0,#E8C4D8);">
+          <span class="fiche-coup" style="background:var(--berry);">🛒 Épicerie</span>
+          <span class="fiche-e">🥗</span>
+          <div class="fiche-nom">Épicerie Bio Compton</div>
+          <div class="fiche-loc">📍 Compton, QC</div>
+          <div class="fiche-desc">Épicerie fine spécialisée en produits biologiques locaux. S'approvisionne directement auprès de 8 fermes des Cantons-de-l'Est.</div>
+          <div class="fiche-tags"><span class="tag">🥕 Légumes</span><span class="tag">🧀 Fromages</span><span class="tag">🍯 Épicerie fine</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Lun–Sam 8h–19h</strong>Produits locaux en priorité</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Restaurant Le Terroir','Magog, QC','450-868-4400','reservations@leterroir.ca','Mar–Dim 11h–21h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FFF3CD,#FFD580);">
+          <span class="fiche-coup" style="background:var(--harvest);">🍽️ Restaurant</span>
+          <span class="fiche-e">🍽️</span>
+          <div class="fiche-nom">Restaurant Le Terroir</div>
+          <div class="fiche-loc">📍 Magog, QC</div>
+          <div class="fiche-desc">Cuisine du terroir québécois 100% locale. Chaque plat est préparé avec des ingrédients achetés directement aux fermes membres.</div>
+          <div class="fiche-tags"><span class="tag">🥩 Viandes locales</span><span class="tag">🥕 Légumes bio</span><span class="tag">🍁 Cuisine QC</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Mar–Dim 11h–21h</strong>Réservation recommandée</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Boutique Santé Orford','Orford, QC','819-843-2200','info@boutiquesanteorford.ca','Lun–Ven 9h–18h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#D8F3DC,#95D5A8);">
+          <span class="fiche-e">🌿</span>
+          <div class="fiche-nom">Boutique Santé Orford</div>
+          <div class="fiche-loc">📍 Orford, QC</div>
+          <div class="fiche-desc">Boutique spécialisée en produits naturels, herbes médicinales et suppléments bio. Partenaire de 3 producteurs locaux.</div>
+          <div class="fiche-tags"><span class="tag">🌿 Herbes</span><span class="tag">💊 Suppléments</span><span class="tag">🧴 Soins naturels</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Lun–Ven 9h–18h</strong>Sam 10h–16h</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Marché du Village Sutton','Sutton, QC','450-538-3300','info@marchevillagesutton.ca','Mer–Dim 9h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#E0F0FF,#A8C8E8);">
+          <span class="fiche-coup" style="background:var(--sky);">🏪 Marché</span>
+          <span class="fiche-e">🏪</span>
+          <div class="fiche-nom">Marché du Village Sutton</div>
+          <div class="fiche-loc">📍 Sutton, QC</div>
+          <div class="fiche-desc">Marché public permanent regroupant producteurs et artisans locaux. Plus de 20 exposants, produits frais et transformés.</div>
+          <div class="fiche-tags"><span class="tag">🥕 Légumes</span><span class="tag">🍞 Boulangerie</span><span class="tag">🎨 Artisanat</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Mer–Dim 9h–17h</strong>Ouvert à l'année</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Café Grain de Lumière','North Hatley, QC','819-842-1500','info@graindelumiere.ca','Lun–Dim 7h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#E8D5C0,#C8A87A);">
+          <span class="fiche-e">☕</span>
+          <div class="fiche-nom">Café Grain de Lumière</div>
+          <div class="fiche-loc">📍 North Hatley, QC</div>
+          <div class="fiche-desc">Café artisanal qui valorise les producteurs locaux. Pâtisseries faites avec des œufs et fruits de fermes partenaires.</div>
+          <div class="fiche-tags"><span class="tag">☕ Café bio</span><span class="tag">🥐 Pâtisseries</span><span class="tag">🥚 Œufs locaux</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Lun–Dim 7h–17h</strong>Déjeuner & brunch</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Fromagerie & Traiteur Coaticook','Coaticook, QC','819-849-5500','info@traiteurcoaticook.ca','Mar–Sam 9h–18h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FFF8DC,#FFE066);">
+          <span class="fiche-coup" style="background:var(--harvest);">⭐ Coup de cœur</span>
+          <span class="fiche-e">🧀</span>
+          <div class="fiche-nom">Traiteur Coaticook</div>
+          <div class="fiche-loc">📍 Coaticook, QC</div>
+          <div class="fiche-desc">Traiteur artisanal spécialisé en cuisine du terroir. Plateaux de fromages, charcuteries et conserves locales pour événements.</div>
+          <div class="fiche-tags"><span class="tag">🧀 Fromages</span><span class="tag">🥗 Traiteur</span><span class="tag">🎉 Événements</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Mar–Sam 9h–18h</strong>Sur commande pour événements</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE DISTRIBUTEURS ═══ -->
+<div id="page-distributeurs" class="page">
+  <section>
+    <div class="sec-eyebrow" id="dist-eyebrow">Intrants agricoles bio</div>
+    <div class="sec-title" id="dist-title">Membres distributeurs</div>
+    <div class="sec-sub" id="dist-sub">Fournisseurs spécialisés en produits agricoles biologiques. Contactez-les directement pour vos commandes d'intrants.</div>
+    <div class="annuaire-grid">
+
+      <div class="fiche" onclick="ouvrirModal('Semences Bio Québec','Sherbrooke, QC','819-555-1234','info@semencesbio.ca','Lun–Ven 8h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#D8F3DC,#7BAE87);">
+          <span class="fiche-e">🌾</span>
+          <div class="fiche-nom">Semences Bio Québec</div>
+          <div class="fiche-loc">📍 Sherbrooke, QC</div>
+          <div class="fiche-desc">200+ variétés de semences certifiées biologiques adaptées au climat québécois.</div>
+          <div class="fiche-tags"><span class="tag">🌾 Semences potagères</span><span class="tag">🌸 Florales</span><span class="tag">🌳 Fruitiers</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>À partir de 15 $</strong>Livraison partout au QC</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Engrais Nature QC','Magog, QC','450-555-5678','info@engraisnature.ca','Mar–Sam 8h–16h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#E8D5F5,#C8A8E0);">
+          <span class="fiche-coup payant">⭐ Coup de cœur</span>
+          <span class="fiche-e">🪱</span>
+          <div class="fiche-nom">Engrais Nature QC</div>
+          <div class="fiche-loc">📍 Magog, QC</div>
+          <div class="fiche-desc">Engrais biologiques certifiés, fertilisants naturels et amendements de sol pour une agriculture saine.</div>
+          <div class="fiche-tags"><span class="tag">🪱 Vermicompost</span><span class="tag">💧 Fertilisants</span><span class="tag">🦠 Inoculants</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>À partir de 25 $</strong>Livraison à la ferme</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Protection Bio Canada','Coaticook, QC','819-555-9012','info@protectionbio.ca','Lun–Ven 7h–16h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#FDDCDC,#F4A8A8);">
+          <span class="fiche-e">🐞</span>
+          <div class="fiche-nom">Protection Bio Canada</div>
+          <div class="fiche-loc">📍 Coaticook, QC</div>
+          <div class="fiche-desc">Solutions de protection des cultures 100% naturelles homologuées au Canada.</div>
+          <div class="fiche-tags"><span class="tag">🐞 Insecticide neem</span><span class="tag">🍄 Fongicide</span><span class="tag">🌿 Herbicide</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>À partir de 30 $</strong>Minimum 5 L</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+
+      <div class="fiche" onclick="ouvrirModal('Équipements Agro Bio','Eastman, QC','450-555-3456','info@equipagrobio.ca','Lun–Ven 8h–17h')">
+        <div class="fiche-top" style="background:linear-gradient(135deg,#E0E8F0,#B0C4D8);">
+          <span class="fiche-e">🔧</span>
+          <div class="fiche-nom">Équipements Agro Bio</div>
+          <div class="fiche-loc">📍 Eastman, QC</div>
+          <div class="fiche-desc">Outils et équipements spécialisés pour l'agriculture biologique. Matériel pour petites et moyennes fermes.</div>
+          <div class="fiche-tags"><span class="tag">🔧 Outils</span><span class="tag">🚜 Équipements</span><span class="tag">💧 Irrigation</span></div>
+        </div>
+        <div class="fiche-foot"><div class="fiche-hrs"><strong>Prix sur demande</strong>Démonstration dispo.</div><button class="btn-cnt">📞 Contacter</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE ABONNEMENTS ═══ -->
+<div id="page-abonnements" class="page">
+  <div class="plans-wrap">
+    <div class="sec-eyebrow" id="ab-eyebrow">Rejoignez le réseau</div>
+    <div class="sec-title" id="ab-title">Choisissez votre abonnement</div>
+    <div class="sec-sub" id="ab-sub">Aucune commission sur vos ventes. Vous gérez vos produits et livraisons. Nous vous donnons la visibilité.</div>
+    <div class="plans-grid">
+
+      <div class="plan">
+        <div class="plan-e">🛒</div>
+        <div class="plan-n" id="pl1-n">Consommateur</div>
+        <div class="plan-n-en">Consumer</div>
+        <div class="plan-d" id="pl1-d">Accès gratuit à l'annuaire bio</div>
+        <div class="plan-p">0<span>$</span></div>
+        <div class="plan-per" id="pl1-per">pour toujours gratuit · forever free</div>
+        <ul class="plan-ul">
+          <li id="pl1-f1">Annuaire complet des fermes</li>
+          <li id="pl1-f2">Catalogue de tous les produits</li>
+          <li id="pl1-f3">Contact direct avec les fermes</li>
+          <li id="pl1-f4">Carte interactive des fermes</li>
+        </ul>
+        <button class="btn-plan" style="background:var(--ember);" onclick="showPage('inscription')" id="pl1-btn">Créer un compte →</button>
+      </div>
+
+      <div class="plan feat">
+        <div class="plan-pop" id="pl2-pop">⭐ Le plus populaire · Most Popular</div>
+        <div class="plan-e">🌾</div>
+        <div class="plan-n" id="pl2-n">Ferme Partenaire</div>
+        <div class="plan-n-en">Farm Partner</div>
+        <div class="plan-d" id="pl2-d">Vitrine complète pour votre ferme</div>
+        <div class="plan-p">29<span>$/mois</span></div>
+        <div class="plan-per" id="pl2-per">sans engagement · no commitment</div>
+        <ul class="plan-ul">
+          <li id="pl2-f1">Profil vitrine complet</li>
+          <li id="pl2-f2">Produits illimités avec photos</li>
+          <li id="pl2-f3">Badge "Certifié bio"</li>
+          <li id="pl2-f4">Priorité dans les résultats</li>
+          <li id="pl2-f5">Statistiques de visites</li>
+          <li id="pl2-f6">Zéro commission sur vos ventes</li>
+          <li id="pl2-f7">1 mois gratuit par parrainage</li>
+        </ul>
+        <button class="btn-plan" style="background:var(--harvest);" onclick="showPage('inscription')" id="pl2-btn">Inscrire ma ferme →</button>
+      </div>
+
+      <div class="plan">
+        <div class="plan-e">📦</div>
+        <div class="plan-n" id="pl3-n">Membre Distributeur</div>
+        <div class="plan-n-en">Distributor Member</div>
+        <div class="plan-d" id="pl3-d">Catalogue d'intrants pour les fermes</div>
+        <div class="plan-p">49<span>$/mois</span></div>
+        <div class="plan-per" id="pl3-per">sans engagement · no commitment</div>
+        <ul class="plan-ul">
+          <li id="pl3-f1">Profil distributeur dédié</li>
+          <li id="pl3-f2">Catalogue illimité</li>
+          <li id="pl3-f3">Accès réseau de fermes</li>
+          <li id="pl3-f4">Badge "Distributeur agréé"</li>
+          <li id="pl3-f5">Analytics & statistiques</li>
+          <li id="pl3-f6">Zéro commission sur vos ventes</li>
+          <li id="pl3-f7">1 mois gratuit par parrainage</li>
+        </ul>
+        <button class="btn-plan" style="background:var(--sky);" onclick="showPage('inscription')" id="pl3-btn">Devenir distributeur →</button>
+      </div>
+
+      <div class="plan">
+        <div class="plan-e">🏪</div>
+        <div class="plan-n" id="pl4-n">Commerçant local</div>
+        <div class="plan-n-en">Local Business</div>
+        <div class="plan-d" id="pl4-d">Épiceries, restaurants, boutiques & marchés</div>
+        <div class="plan-p">49<span>$/mois</span></div>
+        <div class="plan-per" id="pl4-per">sans engagement · no commitment</div>
+        <ul class="plan-ul">
+          <li id="pl4-f1">Profil commerce public</li>
+          <li id="pl4-f2">Visible par les fermes & distributeurs</li>
+          <li id="pl4-f3">Accès annuaire complet</li>
+          <li id="pl4-f4">Badge "Commerce local certifié"</li>
+          <li id="pl4-f5">Mise en relation directe avec fermes</li>
+          <li id="pl4-f6">Analytics & statistiques</li>
+          <li id="pl4-f7">1 mois gratuit par parrainage</li>
+        </ul>
+        <button class="btn-plan" style="background:var(--berry);" onclick="showPage('inscription')" id="pl4-btn">Inscrire mon commerce →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISIBILITÉ PAYANTE -->
+  <section style="background:var(--parchment);border-top:2px solid var(--wheat);">
+    <div class="sec-eyebrow">Boostez votre visibilité</div>
+    <div class="sec-title" id="vp-title">Options de visibilité payante</div>
+    <div class="sec-sub" id="vp-sub">Apparaissez en premier et attirez plus de clients avec nos options de mise en avant.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+      <div style="background:var(--white);border-radius:12px;padding:26px;border:1px solid var(--wheat);text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">⭐</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:20px;margin-bottom:6px;" id="vp1-n">Coup de cœur</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--harvest);font-size:30px;margin-bottom:4px;">15 $</div>
+        <div style="color:#9B8B7A;font-size:11px;margin-bottom:14px;font-style:italic;">/ semaine</div>
+        <div style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="vp1-d">Badge doré sur votre fiche. Apparaissez en tête de liste.</div>
+      </div>
+      <div style="background:var(--white);border-radius:12px;padding:26px;border:1px solid var(--wheat);text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🏠</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:20px;margin-bottom:6px;" id="vp2-n">Bannière Accueil</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--harvest);font-size:30px;margin-bottom:4px;">49 $</div>
+        <div style="color:#9B8B7A;font-size:11px;margin-bottom:14px;font-style:italic;">/ mois</div>
+        <div style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="vp2-d">Votre ferme affichée sur la page d'accueil vue par tous les visiteurs.</div>
+      </div>
+      <div style="background:var(--white);border-radius:12px;padding:26px;border:1px solid var(--wheat);text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🏆</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:20px;margin-bottom:6px;" id="vp3-n">Badge Recommandé</div>
+        <div style="font-family:'Abril Fatface',serif;color:var(--harvest);font-size:30px;margin-bottom:4px;">25 $</div>
+        <div style="color:#9B8B7A;font-size:11px;margin-bottom:14px;font-style:italic;">/ mois</div>
+        <div style="color:#6B5B45;font-size:12px;line-height:1.6;font-family:'Merriweather',serif;font-style:italic;" id="vp3-d">Badge exclusif "Recommandé par Le Panier Vert" sur votre profil.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE PARRAINAGE ═══ -->
+<div id="page-parrainage" class="page">
+  <section class="parrainage-sec">
+    <div class="sec-eyebrow">Gagnez un mois gratuit</div>
+    <div class="sec-title" id="par-title">Programme de parrainage</div>
+    <div class="sec-sub" id="par-sub">Parrainez une ferme ou un distributeur et recevez 1 mois gratuit. La personne parrainée aussi !</div>
+    <div class="parrainage-box">
+      <h3 id="par-box-title">🤝 Parrainez & économisez</h3>
+      <p id="par-box-sub">Chaque membre qui rejoint Le Panier Vert grâce à vous vous offre 1 mois gratuit sur votre abonnement. Partagez votre code unique !</p>
+      <div class="parrainage-steps">
+        <div class="par-step">
+          <div class="par-e">📤</div>
+          <div class="par-t" id="par-s1-t">Partagez</div>
+          <div class="par-d" id="par-s1-d">Envoyez votre code unique à une ferme ou distributeur</div>
+        </div>
+        <div class="par-step">
+          <div class="par-e">✍️</div>
+          <div class="par-t" id="par-s2-t">Ils s'inscrivent</div>
+          <div class="par-d" id="par-s2-d">Ils entrent votre code lors de leur inscription</div>
+        </div>
+        <div class="par-step">
+          <div class="par-e">🎁</div>
+          <div class="par-t" id="par-s3-t">Vous deux gagnez</div>
+          <div class="par-d" id="par-s3-d">1 mois gratuit pour vous ET pour eux</div>
+        </div>
+      </div>
+      <div style="font-family:'Merriweather',serif;font-style:italic;color:#9B8B7A;font-size:12px;margin-bottom:10px;" id="par-code-label">Votre code de parrainage · Your referral code</div>
+      <div class="parrainage-code" id="par-code" onclick="copierCode()">PANIER-DEMO</div>
+      <div style="font-size:11px;color:#9B8B7A;font-style:italic;" id="par-click">Cliquez pour copier · Click to copy</div>
+      <div style="margin-top:20px;background:var(--parchment);border-radius:8px;padding:14px;font-size:12px;color:#6B5B45;font-family:'Merriweather',serif;font-style:italic;" id="par-note">
+        💡 Connectez-vous à votre compte pour voir votre code personnel et suivre vos parrainages.
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE INSCRIPTION ═══ -->
+<div id="page-inscription" class="page">
+  <div class="form-wrap" style="max-width:700px;">
+    <div id="insc-choix" style="padding-top:40px;">
+      <h2 style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:28px;margin-bottom:6px;" id="insc-h">👤 Créer un compte</h2>
+      <p style="color:#9B8B7A;font-size:13px;margin-bottom:24px;font-family:'Merriweather',serif;font-style:italic;" id="insc-p">Choisissez votre type de compte pour commencer</p>
+      <div class="type-grid">
+        <div class="type-card" onclick="selType('consommateur',this)">
+          <div class="type-card-e">🛒</div>
+          <h3 id="tc1-t">Consommateur</h3>
+          <p id="tc1-d">Je cherche des produits bio locaux</p>
+          <div style="margin-top:10px;background:var(--ember);color:var(--white);border-radius:4px;padding:5px;font-size:10px;font-weight:700;letter-spacing:1px;">GRATUIT · FREE</div>
+        </div>
+        <div class="type-card" onclick="selType('ferme',this)">
+          <div class="type-card-e">🌾</div>
+          <h3 id="tc2-t">Ferme partenaire</h3>
+          <p id="tc2-d">Je vends mes produits bio</p>
+          <div style="margin-top:10px;background:var(--fern);color:var(--white);border-radius:4px;padding:5px;font-size:10px;font-weight:700;letter-spacing:1px;">29 $/MOIS</div>
+        </div>
+        <div class="type-card" onclick="selType('distributeur',this)">
+          <div class="type-card-e">📦</div>
+          <h3 id="tc3-t">Distributeur</h3>
+          <p id="tc3-d">Je distribue des produits agricoles bio</p>
+          <div style="margin-top:10px;background:var(--sky);color:var(--white);border-radius:4px;padding:5px;font-size:10px;font-weight:700;letter-spacing:1px;">49 $/MOIS</div>
+        </div>
+        <div class="type-card" onclick="selType('commercant',this)">
+          <div class="type-card-e">🏪</div>
+          <h3 id="tc4-t">Commerçant local</h3>
+          <p id="tc4-d">Épicerie, restaurant, boutique, marché</p>
+          <div style="margin-top:10px;background:var(--berry);color:var(--white);border-radius:4px;padding:5px;font-size:10px;font-weight:700;letter-spacing:1px;">49 $/MOIS</div>
+        </div>
+      </div>
+      <p style="text-align:center;color:#9B8B7A;font-size:13px;font-family:'Merriweather',serif;font-style:italic;">
+        <span id="deja-compte">Déjà un compte ?</span> <span style="color:var(--fern);cursor:pointer;font-weight:700;" onclick="showPage('connexion')" id="conn-link">Se connecter</span>
+      </p>
+    </div>
+
+    <div id="insc-form" style="display:none;">
+      <div class="form-box">
+        <div style="text-align:center;margin-bottom:22px;">
+          <div id="insc-e" style="font-size:48px;margin-bottom:10px;">🛒</div>
+          <h2 id="insc-titre">Inscription</h2>
+          <p id="insc-sp">Remplissez vos informations</p>
+        </div>
+        <div id="insc-err" class="msg-err" style="display:none;"></div>
+        <label id="lbl-nom">Nom complet *</label>
+        <input id="i-nom" placeholder="Marie-Eve Tremblay">
+        <label id="lbl-email">Courriel *</label>
+        <input id="i-email" type="email" placeholder="marie@exemple.com">
+        <label id="lbl-mdp">Mot de passe * (min. 6 caractères)</label>
+        <input id="i-mdp" type="password" placeholder="••••••••">
+        <label id="lbl-tel">Téléphone</label>
+        <input id="i-tel" placeholder="450-555-1234">
+        <label id="lbl-ville">Ville</label>
+        <input id="i-ville" placeholder="Compton, QC">
+        <div id="insc-extra" style="display:none;">
+          <label id="lbl-nomferme">Nom de la ferme *</label>
+          <input id="i-nomferme" placeholder="Ferme Duval">
+          <label id="lbl-desc">Description</label>
+          <textarea id="i-desc" placeholder="Décrivez votre activité..."></textarea>
+          <label id="lbl-parrain">Code de parrainage (optionnel)</label>
+          <input id="i-parrain" placeholder="PANIER-XXXX">
+        </div>
+        <button class="btn-submit" id="insc-btn" style="background:var(--fern);" onclick="inscrire()" id="btn-inscrire">✅ Créer mon compte</button>
+        <button class="btn-back" onclick="retourChoix()">← Retour</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE CONNEXION ═══ -->
+<div id="page-connexion" class="page">
+  <div class="form-wrap">
+    <div class="form-box">
+      <div style="text-align:center;margin-bottom:22px;">
+        <div style="font-size:48px;margin-bottom:10px;">🔐</div>
+        <h2 id="conn-h">Se connecter</h2>
+        <p id="conn-sp">Bienvenue sur Le Panier Vert</p>
+      </div>
+      <div id="conn-err" class="msg-err" style="display:none;"></div>
+      <label id="lbl-cemail">Courriel</label>
+      <input id="c-email" type="email" placeholder="votre@courriel.com">
+      <label id="lbl-cmdp">Mot de passe</label>
+      <input id="c-mdp" type="password" placeholder="••••••••">
+      <button class="btn-submit" style="background:var(--forest);" onclick="connecter()" id="btn-conn">🔐 Se connecter</button>
+      <button class="btn-back" onclick="showPage('inscription')" id="btn-creer">Créer un compte →</button>
+      <div class="demo-box">
+        <div class="demo-box-title">🧪 Comptes démo · Demo accounts</div>
+        <div class="demo-item" onclick="remplirDemo('client@test.com')">🛒 Consommateur — <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="66050a0f03081226120315124805090b">[email&#160;protected]</a></span> / 123456</div>
+        <div class="demo-item" onclick="remplirDemo('ferme@test.com')">🌾 Ferme — <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9b988f9098bd89988e89d39e9290">[email&#160;protected]</a></span> / 123456</div>
+        <div class="demo-item" onclick="remplirDemo('dist@test.com')">📦 Distributeur — <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e1a170d0a3e0a1b0d0a501d1113">[email&#160;protected]</a></span> / 123456</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE MON COMPTE ═══ -->
+<div id="page-moncompte" class="page">
+  <div class="dash-wrap">
+    <div class="dash-header" id="dash-header"></div>
+    <div class="dash-stats" id="dash-stats"></div>
+    <div style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:20px;margin-bottom:16px;" id="dash-actions-t">📊 Actions rapides</div>
+    <div class="dash-grid" id="dash-actions"></div>
+    <div id="mes-prods-sec" style="display:none;margin-top:32px;">
+      <div class="mes-prod-header">
+        <div class="mes-prod-title">📦 Mes produits listés</div>
+        <button class="btn-add-prod" onclick="showPage('ajouter-produit')">➕ Ajouter un produit</button>
+      </div>
+      <div class="produits-grid" id="mes-prods-grid"></div>
+    </div>
+    <!-- PARRAINAGE DANS LE COMPTE -->
+    <div style="margin-top:32px;background:var(--white);border-radius:12px;padding:24px 28px;border:1px solid var(--parchment);box-shadow:0 4px 16px rgba(42,31,20,0.07);">
+      <div style="font-family:'Abril Fatface',serif;color:var(--forest);font-size:18px;margin-bottom:10px;">🤝 Mon code de parrainage</div>
+      <p style="color:#9B8B7A;font-size:12px;font-family:'Merriweather',serif;font-style:italic;margin-bottom:14px;" id="par-dash-txt">Parrainez une ferme ou un distributeur et gagnez 1 mois gratuit chacun !</p>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div class="parrainage-code" style="flex:1;min-width:200px;font-size:18px;padding:12px 16px;" id="dash-par-code" onclick="copierCode()">PANIER-DEMO</div>
+        <button style="background:var(--fern);color:var(--white);border:none;border-radius:6px;padding:12px 20px;font-size:12px;font-weight:700;cursor:pointer;" onclick="showPage('parrainage')">Voir le programme →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE AJOUTER PRODUIT ═══ -->
+<div id="page-ajouter-produit" class="page">
+  <div class="form-wrap">
+    <div class="form-box">
+      <div style="text-align:center;margin-bottom:22px;">
+        <div style="font-size:48px;margin-bottom:10px;">➕</div>
+        <h2 id="ap-h">Ajouter un produit</h2>
+        <p id="ap-sp">Il apparaîtra sur votre fiche et dans le catalogue public</p>
+      </div>
+      <div id="ap-ok" class="msg-ok" style="display:none;">✅ Produit publié ! Visible dans le catalogue.</div>
+      <label>Emoji du produit</label>
+      <input id="ap-emoji" placeholder="🥕" maxlength="2" style="font-size:24px;text-align:center;width:80px;">
+      <label id="ap-lbl-nom">Nom du produit *</label>
+      <input id="ap-nom" placeholder="Carottes biologiques">
+      <label id="ap-lbl-cat">Catégorie</label>
+      <select id="ap-cat">
+        <option>Légumes</option><option>Fruits</option><option>Produits laitiers</option>
+        <option>Viandes</option><option>Œufs</option><option>Miel & Érable</option>
+        <option>Herbes & Plantes</option><option>Semences</option><option>Engrais</option>
+        <option>Protection des cultures</option><option>Équipements</option><option>Autre</option>
+      </select>
+      <label id="ap-lbl-desc">Description</label>
+      <textarea id="ap-desc" placeholder="Décrivez votre produit — variété, méthode de culture, récolte..."></textarea>
+      <label id="ap-lbl-prix">Prix</label>
+      <input id="ap-prix" placeholder="5 $ / botte · 38 $ / panier · Prix sur demande">
+      <label id="ap-lbl-dispo">Disponibilité</label>
+      <input id="ap-dispo" placeholder="Juin–octobre · Toute l'année · Sur commande">
+      <button class="btn-submit" style="background:var(--fern);" onclick="ajouterProduit()" id="ap-btn">✅ Publier le produit</button>
+      <button class="btn-back" onclick="showPage('moncompte')">← Mon compte</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTACT -->
+<div class="overlay" id="modal" onclick="if(event.target===this)fermerModal()">
+  <div class="modal">
+    <button class="modal-x" onclick="fermerModal()">✕</button>
+    <h2 id="m-nom"></h2>
+    <div class="modal-loc" id="m-loc"></div>
+    <div class="minfo">
+      <div class="mrow"><span class="mrow-icon">📞</span><div><strong id="m-tel"></strong><small id="m-tel-lbl">Téléphone — appelez directement</small></div></div>
+      <div class="mrow"><span class="mrow-icon">✉️</span><div><strong id="m-email"></strong><small id="m-email-lbl">Courriel</small></div></div>
+      <div class="mrow"><span class="mrow-icon">🕐</span><div><strong id="m-hrs"></strong><small id="m-hrs-lbl">Heures d'ouverture</small></div></div>
+    </div>
+    <div class="modal-note" id="m-note">💡 La ferme gère ses propres commandes et livraisons selon ses conditions.</div>
+    <button class="modal-btn" onclick="fermerModal()" id="m-btn">✅ Parfait, je les contacte !</button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── ÉTAT ─────────────────────────────────────
+let currentUser = null;
+let lang = 'fr';
+let typeInscription = '';
+let mesProduits = [];
+
+const demoUsers = [
+  {email:'client@test.com',mdp:'123456',nom:'Jean Tremblay',type:'consommateur',ville:'Sherbrooke'},
+  {email:'ferme@test.com',mdp:'123456',nom:'Marie-Eve Duval',type:'ferme',nomferme:'Ferme Duval',ville:'Compton'},
+  {email:'dist@test.com',mdp:'123456',nom:'Pierre Bouchard',type:'distributeur',nomferme:'Semences Bio QC',ville:'Sherbrooke'},
+];
+
+const produitsDemo = [
+  {emoji:'🥕',nom:'Carottes Nantes bio',cat:'Légumes',desc:'Cueillie le matin même, fraîcheur garantie.',prix:'3 $ / botte',dispo:'Juin–Oct',color:'#C4622D',ferme:'Ferme Duval'},
+  {emoji:'🐓',nom:'Œufs de ferme (doz.)',cat:'Œufs',desc:'Poules élevées en plein air, nourries aux grains.',prix:'7 $ / doz.',dispo:'Toute l\'année',color:'#4A7C59',ferme:'Ferme Duval'},
+  {emoji:'🧀',nom:'Fromage St-Laurent',cat:'Fromages',desc:'Pâte semi-ferme affinée 3 mois, lait cru.',prix:'14 $ / 200g',dispo:'Toute l\'année',color:'#D4891A',ferme:'Fromagerie Lalonde'},
+  {emoji:'🍯',nom:'Miel de trèfle',cat:'Miel',desc:'Non pasteurisé, récolte estivale des Cantons.',prix:'18 $ / 500g',dispo:'Août–Sept',color:'#D4891A',ferme:'Rucher Saint-Paul'},
+  {emoji:'🥩',nom:'Bœuf haché bio',cat:'Viandes',desc:'Nourri à l\'herbe, sans hormones ni antibiotiques.',prix:'22 $ / kg',dispo:'Toute l\'année',color:'#8B3A52',ferme:'Ferme Beaulieu'},
+  {emoji:'🍁',nom:'Sirop d\'érable ambré',cat:'Érable',desc:'Grade ambré, goût riche, récolte printanière.',prix:'24 $ / 540 mL',dispo:'Avr–Mai',color:'#C4622D',ferme:'Érablière Fontaine'},
+  {emoji:'🌿',nom:'Tisane forêt boréale',cat:'Herbes',desc:'Mélange de plantes sauvages séchées.',prix:'9 $ / sachet',dispo:'Toute l\'année',color:'#2D5A3D',ferme:'Ferme Herbes Vives'},
+  {emoji:'🥬',nom:'Panier légumes saison',cat:'Légumes',desc:'Assortiment de légumes de saison, surprise hebdo.',prix:'38 $ / panier',dispo:'Juin–Nov',color:'#4A7C59',ferme:'Ferme Duval'},
+];
+
+// ── TRADUCTIONS ───────────────────────────────
+const T = {
+  fr:{
+    tagline:'Marché bio du Québec',
+    badge:'Plateforme bio · Québec',
+    title:'Fermes, distributeurs, commerçants et consommateurs — <em>tous connectés</em>',
+    sub:'Trouvez les meilleures fermes bio du Québec. Les producteurs gèrent leurs annonces — vous les contactez directement.',
+    btn1:'🔍 Explorer les fermes', btn2:'Inscrire ma ferme',
+    hs1:'Fermes partenaires',hs2:'Distributeurs membres',hs3:'Consommateurs actifs',hs4:'Agriculture biologique',
+    s1:'Commission sur vos ventes',s2:'Abonnement ferme / mois',s3:'Produits listés',s4:'Gratuit par parrainage',
+    nbFermes:'🌾 Fermes',nbProd:'🥕 Produits',nbDist:'📦 Distributeurs',nbIns:'Inscrire ma ferme →',nbConn:'👤 Connexion',
+    conn:'👤 Connexion', moncompte:'👤 Mon compte',
+    // modal
+    mTelLbl:'Téléphone — appelez directement',mEmailLbl:'Courriel',mHrsLbl:'Heures d\'ouverture',
+    mNote:'💡 La ferme gère ses propres commandes et livraisons selon ses conditions.',
+    mBtn:'✅ Parfait, je les contacte !',
+    // parrainage
+    parCode:'Cliquez pour copier',
+    copie:'✅ Copié !',
+  },
+  en:{
+    tagline:'Quebec\'s organic market',
+    badge:'Bio Platform · Quebec',
+    title:'Farms, distributors, merchants and consumers — <em>all connected</em>',
+    sub:'Find the best organic farms in Quebec. Producers manage their listings — you contact them directly.',
+    btn1:'🔍 Explore farms', btn2:'List my farm',
+    hs1:'Partner farms',hs2:'Distributor members',hs3:'Active consumers',hs4:'Organic agriculture',
+    s1:'Commission on your sales',s2:'Farm subscription / month',s3:'Listed products',s4:'Free via referral',
+    nbFermes:'🌾 Farms',nbProd:'🥕 Products',nbDist:'📦 Distributors',nbIns:'List my farm →',nbConn:'👤 Login',
+    conn:'👤 Login', moncompte:'👤 My account',
+    mTelLbl:'Phone — call directly',mEmailLbl:'Email',mHrsLbl:'Opening hours',
+    mNote:'💡 The farm manages its own orders and deliveries according to its own terms.',
+    mBtn:'✅ Perfect, I\'ll contact them!',
+    parCode:'Click to copy',
+    copie:'✅ Copied!',
+  }
+};
+
+function setLang(l, btn) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  applyLang();
+}
+
+function applyLang() {
+  const t = T[lang];
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
+  set('nav-tagline',t.tagline);
+  set('h-badge',t.badge);
+  set('h-title',t.title);
+  set('h-sub',t.sub);
+  set('h-btn1',t.btn1);
+  set('h-btn2',t.btn2);
+  set('hs1',t.hs1);set('hs2',t.hs2);set('hs3',t.hs3);set('hs4',t.hs4);
+  set('s1',t.s1);set('s2',t.s2);set('s3',t.s3);set('s4',t.s4);
+  set('nb-fermes',t.nbFermes);
+  set('nb-produits',t.nbProd);
+  set('nb-dist',t.nbDist);
+  set('nb-inscrire',t.nbIns);
+  const ub=document.getElementById('nav-user-btn');
+  if(ub) ub.textContent = currentUser ? t.moncompte : t.conn;
+  set('m-tel-lbl',t.mTelLbl);
+  set('m-email-lbl',t.mEmailLbl);
+  set('m-hrs-lbl',t.mHrsLbl);
+  set('m-note',t.mNote);
+  set('m-btn',t.mBtn);
+  set('par-click',t.parCode);
+}
+
+// ── NAVIGATION ────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg = document.getElementById('page-'+id);
+  if(pg) pg.classList.add('active');
+  if(id==='produits') renderProduits();
+  if(id==='moncompte') renderCompte();
+  window.scrollTo(0,0);
+}
+
+// ── PRODUITS ──────────────────────────────────
+const prodColors=['#C4622D','#D4891A','#4A7C59','#2D5A3D','#8B3A52','#4A7FA5','#7BAE87'];
+function renderProduits() {
+  const all=[...produitsDemo,...mesProduits];
+  document.getElementById('produits-grid').innerHTML=all.map(p=>`
+    <div class="prod-card">
+      <div class="prod-top" style="background:${p.color};">
+        <span class="prod-e">${p.emoji}</span>
+        <div class="prod-n">${p.nom}</div>
+        <span class="prod-cat">${p.cat}</span>
+        <div class="prod-ferme">🏡 ${p.ferme||'Ma ferme'}</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-desc">${p.desc}</div>
+        <div class="prod-prix">${p.prix}</div>
+        <div class="prod-dispo">📅 ${p.dispo}</div>
+        <button class="btn-cmd" style="background:${p.color};"
+          onclick="ouvrirModal('${p.ferme||'Ma ferme'}','Cantons-de-l\\'Est, QC','450-555-0000','contact@lepaniervert.quebec','Contactez-nous')">
+          📞 Commander
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── INSCRIPTION ───────────────────────────────
+function selType(type,el) {
+  typeInscription=type;
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('insc-choix').style.display='none';
+  document.getElementById('insc-form').style.display='block';
+  const cfg={
+    consommateur:{e:'🛒',titre:'Inscription Consommateur',color:'var(--ember)',extra:false},
+    ferme:{e:'🌾',titre:'Inscription Ferme Partenaire',color:'var(--fern)',extra:true,lbl:'Nom de la ferme *',ph:'Ferme Duval'},
+    distributeur:{e:'📦',titre:'Inscription Membre Distributeur',color:'var(--sky)',extra:true,lbl:'Nom de l\'entreprise *',ph:'Semences Bio QC'},
+    commercant:{e:'🏪',titre:'Inscription Commerçant local',color:'var(--berry)',extra:true,lbl:'Nom du commerce *',ph:'Épicerie Bio Compton'},
+  }[type];
+  document.getElementById('insc-e').textContent=cfg.e;
+  document.getElementById('insc-titre').textContent=cfg.titre;
+  document.getElementById('insc-btn').style.background=cfg.color;
+  document.getElementById('insc-extra').style.display=cfg.extra?'block':'none';
+  if(cfg.extra){document.getElementById('lbl-nomferme').textContent=cfg.lbl;document.getElementById('i-nomferme').placeholder=cfg.ph;}
+}
+
+function retourChoix(){
+  document.getElementById('insc-choix').style.display='block';
+  document.getElementById('insc-form').style.display='none';
+}
+
+function inscrire(){
+  const nom=document.getElementById('i-nom').value;
+  const email=document.getElementById('i-email').value;
+  const mdp=document.getElementById('i-mdp').value;
+  const err=document.getElementById('insc-err');
+  if(!nom||!email||!mdp){err.style.display='block';err.textContent='Veuillez remplir tous les champs obligatoires.';return;}
+  if(mdp.length<6){err.style.display='block';err.textContent='Le mot de passe doit avoir au moins 6 caractères.';return;}
+  err.style.display='none';
+  const parrain=document.getElementById('i-parrain')?.value||'';
+  currentUser={nom,email,type:typeInscription,ville:document.getElementById('i-ville').value,nomferme:document.getElementById('i-nomferme')?.value||'',parrain};
+  const code='PANIER-'+nom.split(' ')[0].toUpperCase().substring(0,5);
+  document.getElementById('par-code').textContent=code;
+  document.getElementById('dash-par-code').textContent=code;
+  updateNav();
+  showPage('moncompte');
+}
+
+// ── CONNEXION ─────────────────────────────────
+function remplirDemo(email){
+  document.getElementById('c-email').value=email;
+  document.getElementById('c-mdp').value='123456';
+}
+
+function connecter(){
+  const email=document.getElementById('c-email').value;
+  const mdp=document.getElementById('c-mdp').value;
+  const err=document.getElementById('conn-err');
+  if(!email||!mdp){err.style.display='block';err.textContent='Veuillez entrer votre courriel et mot de passe.';return;}
+  const u=demoUsers.find(x=>x.email===email&&x.mdp===mdp);
+  if(u){
+    err.style.display='none';
+    currentUser=u;
+    const code='PANIER-'+u.nom.split(' ')[0].toUpperCase().substring(0,5);
+    document.getElementById('par-code').textContent=code;
+    document.getElementById('dash-par-code').textContent=code;
+    updateNav();
+    showPage('moncompte');
+  } else {
+    err.style.display='block';
+    err.textContent='Courriel ou mot de passe incorrect.';
+  }
+}
+
+// ── TABLEAU DE BORD ───────────────────────────
+function updateNav(){
+  const btn=document.getElementById('nav-user-btn');
+  const t=T[lang];
+  if(currentUser){
+    btn.textContent='👤 '+currentUser.nom.split(' ')[0];
+    btn.onclick=()=>showPage('moncompte');
+  } else {
+    btn.textContent=t.conn;
+    btn.onclick=()=>showPage('connexion');
+  }
+}
+
+function renderCompte(){
+  if(!currentUser){showPage('connexion');return;}
+  const u=currentUser;
+  const col={consommateur:'var(--ember)',ferme:'var(--fern)',distributeur:'var(--sky)',commercant:'var(--berry)'}[u.type];
+  const e={consommateur:'🛒',ferme:'🌾',distributeur:'📦',commercant:'🏪'}[u.type];
+  const lbl={consommateur:'Consommateur',ferme:'Ferme Partenaire',distributeur:'Membre Distributeur',commercant:'Commerçant local'}[u.type];
+
+  document.getElementById('dash-header').innerHTML=`
+    <div class="dash-ava" style="background:${col};">${e}</div>
+    <div style="flex:1;">
+      <div class="dash-nom">${u.nomferme||u.nom}</div>
+      <div style="color:#9B8B7A;font-size:12px;margin-bottom:6px;font-family:'Merriweather',serif;font-style:italic;">${u.email}</div>
+      <span class="dash-type" style="background:${col};color:white;">${lbl}</span>
+    </div>
+    <button class="btn-logout" onclick="deconnecter()">Déconnexion</button>
+  `;
+
+  const stats={
+    consommateur:[[col,'3','Commandes'],['var(--moss)','6','Fermes visitées'],['var(--harvest)','124 $','Total dépensé'],['var(--berry)','12','Produits consultés']],
+    ferme:[['var(--ember)','8','Commandes reçues'],['var(--moss)','342 $','Revenus ce mois'],['var(--harvest)',mesProduits.length+2,'Produits listés'],['var(--sky)','4.8/5','Note moyenne']],
+    distributeur:[['var(--sky)','15','Produits distribués'],['var(--ember)','1 240 $','Revenus ce mois'],['var(--fern)','28','Livraisons'],['var(--harvest)','12','Fermes clientes']],
+    commercant:[['var(--berry)','8','Fermes fournisseurs'],['var(--ember)','2 100 $','Achats ce mois'],['var(--fern)','34','Commandes passées'],['var(--harvest)','4.9/5','Note moyenne']],
+  }[u.type];
+
+  document.getElementById('dash-stats').innerHTML=stats.map(([c,n,l])=>`
+    <div class="ds" style="background:${c};">
+      <div class="ds-n">${n}</div><div class="ds-l">${l}</div>
+    </div>
+  `).join('');
+
+  const actions={
+    consommateur:[
+      {e:'🔍',n:'Explorer les fermes',d:'Trouvez des producteurs bio près de vous',c:'var(--ember)',fn:"showPage('fermes')"},
+      {e:'🥕',n:'Voir les produits',d:'Parcourez le catalogue bio complet',c:'var(--fern)',fn:"showPage('produits')"},
+      {e:'📦',n:'Distributeurs',d:'Trouvez des fournisseurs d\'intrants bio',c:'var(--sky)',fn:"showPage('distributeurs')"},
+      {e:'🤝',n:'Parrainage',d:'Invitez des fermes et gagnez un mois gratuit',c:'var(--harvest)',fn:"showPage('parrainage')"},
+    ],
+    ferme:[
+      {e:'➕',n:'Ajouter un produit',d:'Publiez un nouveau produit sur la vitrine',c:'var(--fern)',fn:"showPage('ajouter-produit')"},
+      {e:'⭐',n:'Visibilité payante',d:'Boostez votre fiche — Coup de cœur 15$/sem.',c:'var(--harvest)',fn:"showPage('abonnements')"},
+      {e:'🤝',n:'Parrainage',d:'Parrainez une ferme — 1 mois gratuit chacun',c:'var(--ember)',fn:"showPage('parrainage')"},
+      {e:'🌱',n:'Acheter des intrants',d:'Commandez chez nos distributeurs bio',c:'var(--sky)',fn:"showPage('distributeurs')"},
+    ],
+    distributeur:[
+      {e:'➕',n:'Ajouter un produit',d:'Publiez un produit dans votre catalogue',c:'var(--sky)',fn:"showPage('ajouter-produit')"},
+      {e:'⭐',n:'Visibilité payante',d:'Boostez votre profil — Coup de cœur 15$/sem.',c:'var(--harvest)',fn:"showPage('abonnements')"},
+      {e:'🤝',n:'Parrainage',d:'Parrainez un distributeur — 1 mois gratuit',c:'var(--ember)',fn:"showPage('parrainage')"},
+      {e:'🌾',n:'Réseau de fermes',d:'Explorez les fermes clientes potentielles',c:'var(--fern)',fn:"showPage('fermes')"},
+    ],
+    commercant:[
+      {e:'🌾',n:'Trouver des fermes',d:'Trouvez vos fournisseurs locaux bio directement',c:'var(--fern)',fn:"showPage('fermes')"},
+      {e:'📦',n:'Voir les distributeurs',d:'Intrants et produits agricoles en gros',c:'var(--sky)',fn:"showPage('distributeurs')"},
+      {e:'⭐',n:'Visibilité payante',d:'Boostez votre profil — Coup de cœur 15$/sem.',c:'var(--harvest)',fn:"showPage('abonnements')"},
+      {e:'🤝',n:'Parrainage',d:'Parrainez un commerce — 1 mois gratuit chacun',c:'var(--berry)',fn:"showPage('parrainage')"},
+    ],
+  }[u.type];
+
+  document.getElementById('dash-actions').innerHTML=actions.map(a=>`
+    <div class="act-card" style="border-left-color:${a.c};" onclick="${a.fn}">
+      <div class="act-e">${a.e}</div>
+      <div class="act-n">${a.n}</div>
+      <div class="act-d">${a.d}</div>
+    </div>
+  `).join('');
+
+  const showProds=u.type==='ferme'||u.type==='distributeur'||u.type==='commercant';
+  document.getElementById('mes-prods-sec').style.display=showProds?'block':'none';
+  if(showProds){
+    const g=document.getElementById('mes-prods-grid');
+    if(mesProduits.length===0){
+      g.innerHTML=`<div style="background:var(--white);border-radius:12px;padding:32px;text-align:center;color:#9B8B7A;grid-column:1/-1;border:1px solid var(--parchment);">
+        <div style="font-size:44px;margin-bottom:12px;">📭</div>
+        <p style="font-family:'Merriweather',serif;font-style:italic;">Aucun produit encore.<br>Cliquez "Ajouter un produit" pour commencer.</p>
+      </div>`;
+    } else {
+      g.innerHTML=mesProduits.map(p=>`
+        <div class="prod-card">
+          <div class="prod-top" style="background:${p.color};">
+            <span class="prod-e">${p.emoji}</span>
+            <div class="prod-n">${p.nom}</div>
+            <span class="prod-cat">${p.cat}</span>
+          </div>
+          <div class="prod-body">
+            <div class="prod-desc">${p.desc}</div>
+            <div class="prod-prix">${p.prix}</div>
+            <div style="background:var(--parchment);color:var(--fern);border-radius:4px;padding:5px;font-size:10px;text-align:center;font-weight:700;letter-spacing:1px;">✅ EN LIGNE · ONLINE</div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+function deconnecter(){
+  currentUser=null;
+  updateNav();
+  showPage('accueil');
+}
+
+// ── AJOUTER PRODUIT ───────────────────────────
+function ajouterProduit(){
+  const nom=document.getElementById('ap-nom').value;
+  if(!nom){alert('Veuillez entrer un nom de produit.');return;}
+  mesProduits.push({
+    emoji:document.getElementById('ap-emoji').value||'📦',
+    nom,
+    cat:document.getElementById('ap-cat').value,
+    desc:document.getElementById('ap-desc').value||'Produit biologique de qualité.',
+    prix:document.getElementById('ap-prix').value||'Prix sur demande',
+    dispo:document.getElementById('ap-dispo').value||'Disponible',
+    color:prodColors[mesProduits.length%prodColors.length],
+    ferme:currentUser?.nomferme||currentUser?.nom||'Ma ferme'
+  });
+  document.getElementById('ap-ok').style.display='block';
+  document.getElementById('ap-nom').value='';
+  document.getElementById('ap-emoji').value='';
+  document.getElementById('ap-desc').value='';
+  document.getElementById('ap-prix').value='';
+  document.getElementById('ap-dispo').value='';
+  setTimeout(()=>{document.getElementById('ap-ok').style.display='none';showPage('moncompte');},1800);
+}
+
+// ── MODAL ─────────────────────────────────────
+function ouvrirModal(nom,loc,tel,email,hrs){
+  document.getElementById('m-nom').textContent=nom;
+  document.getElementById('m-loc').textContent='📍 '+loc;
+  document.getElementById('m-tel').textContent=tel;
+  document.getElementById('m-email').textContent=email;
+  document.getElementById('m-hrs').textContent=hrs;
+  document.getElementById('modal').classList.add('act');
+  a
+
+  
