@@ -17,7 +17,7 @@ export default function PanierDrawer({ panier, totalPanier, retirerDuPanier, vid
       {/* Tiroir */}
       <div style={{
         position: 'fixed', right: 0, top: 0, bottom: 0,
-        width: '380px', background: '#FFFCF5',
+        width: 'min(380px, 100vw)', background: '#FFFCF5',
         boxShadow: '-8px 0 40px rgba(0,0,0,0.2)',
         zIndex: 800, display: 'flex', flexDirection: 'column',
       }}>

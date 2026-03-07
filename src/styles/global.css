@@ -44,6 +44,7 @@ body::before {
 .btn-secondary { background:transparent; color:var(--mint); border:2px solid rgba(181,213,190,0.4); border-radius:6px; padding:13px 28px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Source Sans 3',sans-serif; transition:all 0.2s; }
 .btn-secondary:hover { border-color:var(--mint); background:rgba(181,213,190,0.08); }
 
+/* Fiches */
 .fiche { background:var(--white); border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(42,31,20,0.1); transition:all 0.3s; cursor:pointer; border:1px solid var(--parchment); }
 .fiche:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(42,31,20,0.18); }
 .fiche-top  { padding:24px 22px 16px; position:relative; }
@@ -59,12 +60,14 @@ body::before {
 .fiche-hrs strong { color:var(--ink); display:block; font-size:12px; font-weight:700; }
 .btn-cnt    { background:var(--forest); color:var(--mint); border:none; border-radius:6px; padding:8px 16px; font-size:11px; font-weight:700; cursor:pointer; letter-spacing:0.5px; transition:all 0.2s; }
 .btn-cnt:hover { background:var(--moss); }
-.annuaire-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:22px; }
+.annuaire-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px; }
 
+/* Tabs */
 .comm-tab { background:transparent; color:#6B5B45; border:none; border-bottom:3px solid transparent; padding:16px 20px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Source Sans 3',sans-serif; letter-spacing:0.3px; white-space:nowrap; transition:all 0.2s; }
 .comm-tab:hover { color:var(--fern); }
 .comm-tab.active { color:var(--fern); border-bottom-color:var(--fern); }
 
+/* Formulaires */
 label { display:block; font-weight:700; color:var(--forest); margin-bottom:5px; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
 input,textarea,select { width:100%; padding:12px 14px; border-radius:6px; border:1.5px solid var(--wheat); font-size:14px; font-family:'Source Sans 3',sans-serif; margin-bottom:14px; outline:none; background:var(--cream); transition:border 0.2s; color:var(--ink); }
 input:focus,textarea:focus,select:focus { border-color:var(--fern); background:var(--white); }
@@ -75,7 +78,100 @@ textarea { height:88px; resize:vertical; }
 .overlay { display:none; position:fixed; inset:0; background:rgba(27,58,45,0.75); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
 .overlay.active { display:flex; }
 
-@media(max-width:768px) {
-  .sec-title { font-size:28px; }
-  .annuaire-grid { grid-template-columns:1fr; }
+/* Navbar responsive */
+.nav-desktop { display:flex !important; }
+.nav-mobile  { display:none !important; }
+
+/* Hero responsive */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Portails grid */
+.portails-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+/* Section padding */
+.section-pad {
+  padding: 72px 48px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE MOBILE
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .portails-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar */
+  .nav-desktop { display:none !important; }
+  .nav-mobile  { display:flex !important; }
+
+  /* Hero */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 20px;
+    text-align: center;
+  }
+  .hero-btns {
+    justify-content: center;
+  }
+
+  /* Portails */
+  .portails-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* Sections */
+  .section-pad {
+    padding: 48px 20px;
+  }
+
+  /* Titres */
+  .sec-title { font-size:26px; }
+
+  /* Grille annuaire */
+  .annuaire-grid { grid-template-columns: 1fr; }
+
+  /* Tabs scrollables */
+  .comm-tab { padding: 12px 14px; font-size: 11px; }
+
+  /* Boutons plein largeur sur mobile */
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .portails-grid {
+    grid-template-columns: 1fr;
+  }
+  .sec-title { font-size:22px; }
 }
