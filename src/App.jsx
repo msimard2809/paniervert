@@ -33,7 +33,7 @@ export default function App() {
       case 'abonnements':    return <PageAbonnements   navigate={app.navigate} currentUser={app.currentUser} />;
       case 'connexion':      return <PageConnexion     connexion={app.connecter}  navigate={app.navigate} />;
       case 'inscription':    return <PageInscription   inscription={app.inscrire} navigate={app.navigate} />;
-      case 'moncompte':      return <PageMonCompte     currentUser={app.currentUser} deconnexion={app.deconnecter} navigate={app.navigate} produits={app.produits} />;
+      case 'moncompte':      return <PageMonCompte     currentUser={app.currentUser} deconnexion={app.deconnecter} navigate={app.navigate} produits={app.produits} ajouterProduit={app.ajouterProduit} />;
       case 'ajouterproduit': return <PageAjouterProduit currentUser={app.currentUser} ajouterProduit={app.ajouterProduit} navigate={app.navigate} />;
       case 'parrainage':     return <PageParrainage    currentUser={app.currentUser} navigate={app.navigate} />;
       default:               return <PageAccueil       lang={app.lang}            navigate={app.navigate} />;

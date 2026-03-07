@@ -15,6 +15,7 @@ export function PageAjouterProduit({ currentUser, ajouterProduit, navigate }) {
   const [prixNum, setPrixNum]   = useState('');
   const [dispo, setDispo]       = useState('');
   const [mode, setMode]         = useState('both');
+  const [image, setImage]       = useState('');
   const [err, setErr]           = useState('');
   const [ok, setOk]             = useState('');
 
@@ -34,9 +35,10 @@ export function PageAjouterProduit({ currentUser, ajouterProduit, navigate }) {
       ferme: currentUser.nomferme || currentUser.nom,
       emailFerme: currentUser.email,
       modeVente: mode,
+      image: image.trim() || null,
     });
     setOk('✅ Produit ajouté avec succès !');
-    setNom(''); setPrix(''); setPrixNum(''); setDesc(''); setDispo('');
+    setNom(''); setPrix(''); setPrixNum(''); setDesc(''); setDispo(''); setImage('');
     setTimeout(() => navigate('moncompte'), 1500);
   };
 
@@ -86,6 +88,23 @@ export function PageAjouterProduit({ currentUser, ajouterProduit, navigate }) {
             <option value="reserve">📅 Réservation seulement</option>
             <option value="both">⚡📅 Les deux</option>
           </select>
+
+          <label>Photo du produit (URL) — optionnel</label>
+          <input
+            placeholder="https://exemple.com/photo-carotte.jpg"
+            value={image}
+            onChange={e => setImage(e.target.value)}
+          />
+          {image.trim() && (
+            <div style={{ marginTop:'8px', marginBottom:'14px' }}>
+              <img
+                src={image.trim()}
+                alt="Aperçu"
+                style={{ width:'100%', maxHeight:'180px', objectFit:'cover', borderRadius:'8px', border:'1px solid #EDE4CF' }}
+                onError={e => { e.target.style.display='none'; }}
+              />
+            </div>
+          )}
 
           <button className="btn-submit" style={{ background:'#BF4E22' }} onClick={soumettre}>
             Publier le produit →

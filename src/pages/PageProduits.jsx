@@ -50,16 +50,26 @@ export default function PageProduits({ produits, ajouterAuPanier, currentUser })
                 onMouseOut={e=>e.currentTarget.style.transform='translateY(0)'}
               >
                 {/* Couleur top */}
-                <div style={{ background:`linear-gradient(135deg,${p.color}22,${p.color}44)`, padding:'28px 22px 20px', position:'relative' }}>
-                  <span style={{ position:'absolute', top:'10px', right:'10px', background: p.modeVente==='reserve' ? '#3D6B4A' : '#C97D12', color:'#FFFCF5', borderRadius:'4px', padding:'2px 8px', fontSize:'9px', fontWeight:700, textTransform:'uppercase' }}>
+                <div style={{ background:`linear-gradient(135deg,${p.color}22,${p.color}44)`, padding: p.image ? '0' : '28px 22px 20px', position:'relative' }}>
+                  <span style={{ position:'absolute', top:'10px', right:'10px', background: p.modeVente==='reserve' ? '#3D6B4A' : '#C97D12', color:'#FFFCF5', borderRadius:'4px', padding:'2px 8px', fontSize:'9px', fontWeight:700, textTransform:'uppercase', zIndex:1 }}>
                     {p.modeVente==='instant' ? '⚡ Achat immédiat' : p.modeVente==='reserve' ? '📅 Réservation' : '⚡ Achat & Résa'}
                   </span>
-                  <span style={{ fontSize:'48px', display:'block', marginBottom:'10px' }}>{p.emoji}</span>
+                  {p.image ? (
+                    <img
+                      src={p.image}
+                      alt={p.nom}
+                      style={{ width:'100%', height:'160px', objectFit:'cover', display:'block', marginBottom:'0' }}
+                      onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }}
+                    />
+                  ) : null}
+                  <div style={{ padding: p.image ? '14px 22px 0' : '0' }}>
+                  <span style={{ fontSize:'48px', display: p.image ? 'none' : 'block', marginBottom:'10px' }}>{p.emoji}</span>
                   <div style={{ fontFamily:"'Abril Fatface',serif", fontSize:'18px', color:'#1E2D1A', marginBottom:'4px' }}>{p.nom}</div>
                   <div style={{ fontSize:'10px', color:'#3D6B4A', fontWeight:700, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:'8px' }}>
                     🌾 {p.ferme}
                   </div>
                   <div style={{ fontSize:'12px', color:'#6B5B45', fontFamily:"'Merriweather',serif", fontStyle:'italic', lineHeight:1.6 }}>{p.desc}</div>
+                  </div>
                 </div>
 
                 <div style={{ padding:'16px 22px', borderTop:'1px solid #EDE4CF' }}>

@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════
 // Le Panier Vert — Page Mon Compte (tableau de bord)
 // ═══════════════════════════════════════════════
-import React from 'react';
+import React, { useRef } from 'react';
 
 const TYPE_CONFIG = {
   ferme:        { color:'#3D6B4A', label:'Ferme bio',       e:'🌾', actions:[['📦 Mes produits','ajouterproduit'],['📊 Mes ventes','moncompte'],['🤝 Parrainage','parrainage'],['⚙️ Mon profil','moncompte']] },
@@ -10,7 +10,9 @@ const TYPE_CONFIG = {
   consommateur: { color:'#6A9E77', label:'Consommateur',    e:'🛒', actions:[['🥕 Parcourir produits','produits'],['🌾 Voir les fermes','fermes'],['🤝 Parrainage','parrainage'],['⚙️ Mon profil','moncompte']] },
 };
 
-export default function PageMonCompte({ currentUser, deconnexion, navigate, produits }) {
+export default function PageMonCompte({ currentUser, deconnexion, navigate, produits, ajouterProduit }) {
+  const fileInputRef = useRef(null);
+
   if (!currentUser) {
     navigate('connexion');
     return null;
@@ -19,6 +21,55 @@ export default function PageMonCompte({ currentUser, deconnexion, navigate, prod
   const cfg = TYPE_CONFIG[currentUser.type] || TYPE_CONFIG.consommateur;
   const mesProduits = produits.filter(p => p.emailFerme === currentUser.email);
   const code = 'PANIER-' + currentUser.nom.split(' ')[0].toUpperCase().substring(0, 5);
+
+  const telechargerModele = async () => {
+    const XLSX = await import('xlsx');
+    const lignes = [
+      ['nom','categorie','description','prix','prix_num','disponibilite','emoji','mode_vente','image'],
+      ['Carottes Nantes bio','Légumes','Fraîches du matin, non lavées','3 $ / botte','3',"Juin–Oct",'🥕','both',''],
+      ['Miel de trèfle','Miel','Non pasteurisé, récolte estivale','18 $ / 500g','18',"Août–Sept",'🍯','instant',''],
+    ];
+    const ws = XLSX.utils.aoa_to_sheet(lignes);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Produits');
+    XLSX.writeFile(wb, 'modele_produits_paniervert.xlsx');
+  };
+
+  const importerExcel = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !ajouterProduit) return;
+    try {
+      const XLSX = await import('xlsx');
+      const data = await file.arrayBuffer();
+      const wb = XLSX.read(data);
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws);
+      let count = 0;
+      rows.forEach(row => {
+        const nom = row['nom'] || row['Nom'] || '';
+        if (!nom.trim()) return;
+        ajouterProduit({
+          nom:       nom.trim(),
+          cat:       row['categorie'] || row['Catégorie'] || 'Autre',
+          desc:      row['description'] || row['Description'] || '',
+          prix:      row['prix'] || row['Prix'] || '',
+          prixNum:   parseFloat(row['prix_num'] || row['Prix num'] || 0) || 0,
+          dispo:     row['disponibilite'] || row['Disponibilité'] || "Toute l'année",
+          emoji:     row['emoji'] || row['Emoji'] || '📦',
+          modeVente: row['mode_vente'] || row['Mode vente'] || 'both',
+          image:     (row['image'] || row['Image'] || '').trim() || null,
+          color:     '#3D6B4A',
+          ferme:     currentUser.nomferme || currentUser.nom,
+          emailFerme: currentUser.email,
+        });
+        count++;
+      });
+      alert(`✅ ${count} produit${count>1?'s':''} importé${count>1?'s':''} avec succès !`);
+    } catch {
+      alert('❌ Erreur lors de la lecture du fichier. Vérifiez le format.');
+    }
+    e.target.value = '';
+  };
 
   return (
     <div className="page-enter">
@@ -85,13 +136,28 @@ export default function PageMonCompte({ currentUser, deconnexion, navigate, prod
           {/* Mes produits (vendeurs) */}
           {(currentUser.type === 'ferme' || currentUser.type === 'distributeur') && (
             <div>
-              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'14px' }}>
+              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:'10px', marginBottom:'14px' }}>
                 <div style={{ fontFamily:"'Abril Fatface',serif", fontSize:'20px', color:'#1E2D1A' }}>
                   Mes produits ({mesProduits.length})
                 </div>
-                <button className="btn-fern" onClick={() => navigate('ajouterproduit')}>
-                  + Ajouter un produit
-                </button>
+                <div style={{ display:'flex', gap:'8px', flexWrap:'wrap' }}>
+                  <button
+                    style={{ background:'#FFFCF5', border:'1.5px solid #D0AA88', color:'#6B5B45', borderRadius:'6px', padding:'7px 14px', cursor:'pointer', fontSize:'12px', fontWeight:600, fontFamily:"'Source Sans 3',sans-serif" }}
+                    onClick={telechargerModele}
+                  >
+                    📥 Modèle Excel
+                  </button>
+                  <button
+                    style={{ background:'#FFFCF5', border:'1.5px solid #3D6B4A', color:'#3D6B4A', borderRadius:'6px', padding:'7px 14px', cursor:'pointer', fontSize:'12px', fontWeight:600, fontFamily:"'Source Sans 3',sans-serif" }}
+                    onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                  >
+                    📊 Importer Excel
+                  </button>
+                  <input ref={fileInputRef} type="file" accept=".xlsx,.xls" style={{ display:'none' }} onChange={importerExcel} />
+                  <button className="btn-fern" onClick={() => navigate('ajouterproduit')}>
+                    + Ajouter un produit
+                  </button>
+                </div>
               </div>
 
               {mesProduits.length === 0 ? (
@@ -108,7 +174,11 @@ export default function PageMonCompte({ currentUser, deconnexion, navigate, prod
                 <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(250px,1fr))', gap:'14px' }}>
                   {mesProduits.map(p => (
                     <div key={p.id} style={{ background:'#FFFCF5', borderRadius:'10px', padding:'16px', border:'1px solid #EDE4CF', display:'flex', gap:'12px', alignItems:'center' }}>
-                      <span style={{ fontSize:'32px' }}>{p.emoji}</span>
+                      {p.image ? (
+                        <img src={p.image} alt={p.nom} style={{ width:'48px', height:'48px', objectFit:'cover', borderRadius:'6px', flexShrink:0 }} onError={e=>{e.target.style.display='none';}} />
+                      ) : (
+                        <span style={{ fontSize:'32px' }}>{p.emoji}</span>
+                      )}
                       <div style={{ flex:1 }}>
                         <div style={{ fontWeight:700, fontSize:'13px', color:'#1E2D1A' }}>{p.nom}</div>
                         <div style={{ fontSize:'11px', color:'#9B8B7A', marginTop:'2px' }}>{p.cat} · {p.dispo}</div>
