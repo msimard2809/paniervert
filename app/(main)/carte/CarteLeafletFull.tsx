@@ -8,7 +8,7 @@ interface Producteur {
   km: number
   type: string
   note: number
-  produits: number
+  produits: number | string[]
   lat: number
   lng: number
   emoji: string
@@ -64,7 +64,7 @@ export default function CarteLeafletFull({ producteurs, selectionne, onSelect, t
 
       mapRef.current = map
 
-      (producteurs || []).forEach(p => {
+      producteurs.forEach((p: Producteur) => {
         const color = typeColors[p.type] || '#4ade80'
         const isSelected = p.id === selectionne
         const size = isSelected ? 48 : 38
@@ -104,7 +104,7 @@ export default function CarteLeafletFull({ producteurs, selectionne, onSelect, t
         mapRef.current = null
       }
     }
-  }, [producteurs, selectionne])
+  }, [onSelect, producteurs, selectionne, typeColors])
 
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 }

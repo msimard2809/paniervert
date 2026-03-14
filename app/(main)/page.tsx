@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Nav from '@/app/components/Nav'
 import Footer from '@/app/components/Footer'
 
-const MapEstrie = dynamic(() => import('./carte/CarteLeafletFull'), { ssr: false })
+const MapEstrie = dynamic(() => import('./MapEstrie'), { ssr: false })
 
 const surplus = [
   { nom: 'Carottes bio', ferme: 'Ferme Tremblay', avant: '3,50$', apres: '1,75$', img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=200&q=80' },

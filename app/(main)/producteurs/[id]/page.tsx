@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import Nav from '../../components/Nav'
+import Nav from '@/app/components/Nav'
 
 // Données d'exemple pour Ferme Tremblay
 const producteur = {
