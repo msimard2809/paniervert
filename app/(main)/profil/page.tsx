@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
+import Nav from '@/app/components/Nav'
+import Footer from '@/app/components/Footer'
 import Link from 'next/link'
 
 type Onglet = 'apercu' | 'commandes' | 'abonnements' | 'favoris' | 'parametres'

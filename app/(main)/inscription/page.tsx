@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import Nav from '../components/Nav'
+import Nav from '@/app/components/Nav'
 
 const plans = [
   { id: 'gratuit', nom: 'Gratuit', prix: '0$', desc: 'Pour commencer', couleur: '#888', items: ['Vitrine publique', 'Fiche producteur', 'Contact direct', '5 produits max', 'Carte interactive'] },

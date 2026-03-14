@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
+import Nav from '@/app/components/Nav'
+import Footer from '@/app/components/Footer'
 
 const tous = [
   { id: 1, nom: 'Ferme Tremblay', proprio: 'Jean & Marie Tremblay', ville: 'Magog', km: 8, type: 'Maraîcher', emoji: '🌾', methode: 'biologique', note: 4.9, avis: 47, produits: 47, img: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=260&fit=crop', desc: 'Légumes biologiques récoltés à la main chaque matin.', badges: ['🌿 Bio certifié', '🚫 Sans pesticides'] },

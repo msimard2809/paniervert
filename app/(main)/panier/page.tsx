@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import Nav from '../components/Nav'
+import Nav from '@/app/components/Nav'
 
 const cartInitial = [
   { id: 1, nom: 'Carottes biologiques', ferme: 'Ferme Tremblay', prix: 3.50, unite: 'kg', qty: 2, img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=120&h=120&fit=crop', badge: '🌿 Bio', km: 8 },

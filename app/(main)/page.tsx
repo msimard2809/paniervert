@@ -2,8 +2,8 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
+import Nav from '@/app/components/Nav'
+import Footer from '@/app/components/Footer'
 
 const MapEstrie = dynamic(() => import('./carte/CarteLeafletFull'), { ssr: false })
 
