@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Nav from '@/app/components/Nav'
+import Footer from '@/app/components/Footer'
 
 // Données d'exemple pour Ferme Tremblay
 const producteur = {
